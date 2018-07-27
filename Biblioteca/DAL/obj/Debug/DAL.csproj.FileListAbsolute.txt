@@ -1,0 +1,13 @@
+C:\Users\byron\Documents\Proyectos\Biblioteca\Biblioteca\DAL\bin\Debug\DAL.dll.config
+C:\Users\byron\Documents\Proyectos\Biblioteca\Biblioteca\DAL\bin\Debug\DAL.dll
+C:\Users\byron\Documents\Proyectos\Biblioteca\Biblioteca\DAL\bin\Debug\DAL.pdb
+C:\Users\byron\Documents\Proyectos\Biblioteca\Biblioteca\DAL\bin\Debug\Dapper.dll
+C:\Users\byron\Documents\Proyectos\Biblioteca\Biblioteca\DAL\bin\Debug\DATA.dll
+C:\Users\byron\Documents\Proyectos\Biblioteca\Biblioteca\DAL\bin\Debug\ServiceStack.Interfaces.dll
+C:\Users\byron\Documents\Proyectos\Biblioteca\Biblioteca\DAL\bin\Debug\DATA.pdb
+C:\Users\byron\Documents\Proyectos\Biblioteca\Biblioteca\DAL\bin\Debug\Dapper.xml
+C:\Users\byron\Documents\Proyectos\Biblioteca\Biblioteca\DAL\bin\Debug\ServiceStack.Interfaces.xml
+C:\Users\byron\Documents\Proyectos\Biblioteca\Biblioteca\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+C:\Users\byron\Documents\Proyectos\Biblioteca\Biblioteca\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+C:\Users\byron\Documents\Proyectos\Biblioteca\Biblioteca\DAL\obj\Debug\DAL.dll
+C:\Users\byron\Documents\Proyectos\Biblioteca\Biblioteca\DAL\obj\Debug\DAL.pdb

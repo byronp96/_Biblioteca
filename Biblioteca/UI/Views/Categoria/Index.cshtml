@@ -1,0 +1,47 @@
+﻿@model IEnumerable<UI.Models.Categoria>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a href="#" class="btn" onclick="pAccion('Categoria','vCreate')">Crear nuevo</a>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.cat_codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cat_descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.cat_codigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cat_descripcion)
+        </td>
+        <td>
+            <a href="#" class="btn-link" onclick="pAccion('Categoria','vEdit', @item.cat_codigo)">Editar</a>
+            |
+            <a href="#" class="btn-link" onclick="pAccion('Categoria','Details', @item.cat_codigo)">Detalles</a>
+            |
+            <a href="#" class="btn-link" onclick="pAccion('Categoria','Delete', @item.cat_codigo)">Borrar</a>
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.cat_codigo }) |
+            @Html.ActionLink("Details", "Details", new { id = item.cat_codigo }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.cat_codigo })*@
+        </td>
+    </tr>
+}
+
+</table>
+
+

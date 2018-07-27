@@ -1,0 +1,75 @@
+﻿@model IEnumerable<UI.Models.Cliente>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.cli_codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cli_identificacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cli_nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cli_apellido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cli_correo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cli_fecha_nacimiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cli_telefono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cli_clave)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.cli_codigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cli_identificacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cli_nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cli_apellido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cli_correo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cli_fecha_nacimiento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cli_telefono)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cli_clave)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
