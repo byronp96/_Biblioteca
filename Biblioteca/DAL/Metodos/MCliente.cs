@@ -14,7 +14,8 @@ namespace DAL.Metodos
     {                   
         public bool Agregar(Cliente cliente)
         {     
-            string vlcQuery = string.Format("Insert Into Cliente (cli_identificacion,cli_nombre,cli_apellido,cli_correo,cli_fecha_nacimiento,cli_telefono,cli_clave) Values('{0}','{1}','{2}','{3}','{4}','{5}','{6}')",
+            string vlcQuery = string.Format("Insert Into Cliente (cli_identificacion,cli_nombre,cli_apellido,cli_correo,cli_fecha_nacimiento,cli_telefono,cli_clave) " +
+                "Values('{0}','{1}','{2}','{3}','{4}','{5}','{6}')",
                                             cliente.cli_identificacion,
                                             cliente.cli_nombre,
                                             cliente.cli_apellido,
