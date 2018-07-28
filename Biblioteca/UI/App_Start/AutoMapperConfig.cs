@@ -17,6 +17,15 @@ namespace UI
 
                 cfg.CreateMap<Models.Cliente, DATA.Cliente>();
                 cfg.CreateMap<DATA.Cliente, Models.Cliente>();
+
+                cfg.CreateMap<Models.Permiso, DATA.Permiso>();
+                cfg.CreateMap<DATA.Permiso, Models.Permiso>();
+
+                cfg.CreateMap<Models.Recargo, DATA.Recargo>();
+                cfg.CreateMap<DATA.Recargo, Models.Recargo>();
+
+                cfg.CreateMap<Models.Usuario, DATA.Usuario>();
+                cfg.CreateMap<DATA.Usuario, Models.Usuario>();
             });
         }
     }

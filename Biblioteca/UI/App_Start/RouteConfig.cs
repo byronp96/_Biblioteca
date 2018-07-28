@@ -14,10 +14,34 @@ namespace UI
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
+                name: "Biblioteca",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Biblioteca", action = "Biblioteca", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+               name: "IniciarSesion",
+               url: "{controller}/{action}/{id}",
+               defaults: new { controller = "Entrar", action = "IniciarSesion", id = UrlParameter.Optional }
+           );
+
+            routes.MapRoute(
+               name: "Registrarse",
+               url: "{controller}/{action}/{id}",
+               defaults: new { controller = "Entrar", action = "Registrarse", id = UrlParameter.Optional }
+           );
+
+            routes.MapRoute(
+               name: "AdministracionUsuario",
+               url: "{controller}/{action}/{id}",
+               defaults: new { controller = "AdministracionUsuario", action = "Administracion_Usuario", id = UrlParameter.Optional }
+           );
+
+            routes.MapRoute(
+               name: "AdministracionCliente",
+               url: "{controller}/{action}/{id}",
+               defaults: new { controller = "AdministracionCliente", action = "Administracion_Cliente", id = UrlParameter.Optional }
+           );
 
             routes.MapRoute(
                name: "Categoria",
