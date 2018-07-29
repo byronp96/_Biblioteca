@@ -9,7 +9,7 @@ namespace UI.Controllers
     public class AdministracionUsuarioController : Controller
     {
         // GET: AdministracionUsuario
-        public ActionResult Administracion_Usuario()
+        public ActionResult Index()
         {
             return View();
         }
