@@ -1,75 +1,92 @@
 ﻿@model IEnumerable<UI.Models.Cliente>
+<div id="contenedor_cliente">
+    <h2>Mantenimiento de Cliente</h2>
 
-@{
-    ViewBag.Title = "Index";
-}
+    <p>
+        <a href="#" onclick="pAgregar()">Agregar Cliente</a>
+    </p>
+    <table class="table">
+        <tr>
+            <th class="hide">
+                Codigo
+            </th>
+            <th>
+                Identificacion
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Apellido
+            </th>
+            <th>
+                Correo
+            </th>
+            <th>
+                Fecha de Nacimiento
+            </th>
+            <th>
+                Telefono
+            </th>
+            <th>
+                Clave
+            </th>
+            <th></th>
+        </tr>
 
-<h2>Index</h2>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.cli_codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cli_identificacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cli_nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cli_apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cli_correo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cli_fecha_nacimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cli_telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cli_clave)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.cli_codigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cli_identificacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cli_nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cli_apellido)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cli_correo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cli_fecha_nacimiento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cli_telefono)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cli_clave)
-        </th>
-        <th></th>
-    </tr>
+    </table>
+</div>
+<div id="detalle_cliente">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.cli_codigo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cli_identificacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cli_nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cli_apellido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cli_correo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cli_fecha_nacimiento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cli_telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cli_clave)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
-
-</table>
+</div>
+<script>
+    function pAgregar() {
+        $.ajax({
+            url: '../Cliente/Create',
+            method: 'POST',
+            data: { },
+            success: function (respuesta) {
+                $('#detalle_cliente').html(respuesta);
+                $('#contenedor_cliente').addClass('hide');
+                $('#detalle_cliente').removeClass('hide');
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
+            }
+        });
+    };
+</script>

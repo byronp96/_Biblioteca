@@ -32,16 +32,10 @@ namespace UI
            );
 
             routes.MapRoute(
-               name: "AdministracionUsuario",
-               url: "{controller}/{action}/{id}",
-               defaults: new { controller = "AdministracionUsuario", action = "Administracion_Usuario", id = UrlParameter.Optional }
-           );
-
-            routes.MapRoute(
-               name: "AdministracionCliente",
-               url: "{controller}/{action}/{id}",
-               defaults: new { controller = "AdministracionCliente", action = "Administracion_Cliente", id = UrlParameter.Optional }
-           );
+                name: "Principal",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Biblioteca", action = "Principal", id = UrlParameter.Optional }
+            );         
 
             routes.MapRoute(
                name: "Categoria",

@@ -62,6 +62,14 @@
     <link href="../assets/css/sb-admin.css" rel="stylesheet">
     @*@Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <style>
+        .hide {
+            display: none !important;
+        }
+    </style>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -179,19 +187,14 @@
             </div>
         </div>
         <!-- Bootstrap core JavaScript-->
-        <script src="../assets/vendor/jquery/jquery.min.js"></script>
         <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- Core plugin JavaScript-->
         <script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
         <!-- Page level plugin JavaScript-->
-        <script src="../assets/vendor/chart.js/Chart.min.js"></script>
         <script src="../assets/vendor/datatables/jquery.dataTables.js"></script>
         <script src="../assets/vendor/datatables/dataTables.bootstrap4.js"></script>
         <!-- Custom scripts for all pages-->
         <script src="../assets/js/sb-admin.min.js"></script>
-        <!-- Custom scripts for this page-->
-        <script src="../assets/js/sb-admin-datatables.min.js"></script>
-        <script src="../assets/js/sb-admin-charts.min.js"></script>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

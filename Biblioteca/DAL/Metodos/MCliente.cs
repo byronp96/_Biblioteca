@@ -24,7 +24,7 @@ namespace DAL.Metodos
                                             cliente.cli_telefono,
                                             cliente.cli_clave);
 
-            using (IDbConnection db = new SqlConnection(BD.Default.conexion))
+            using (IDbConnection db = new SqlConnection(@"Server = DESKTOP-6Q5GDRN\THAMES; Database = Biblioteca; User Id = esteban; Password = esteban;"))
             {                                         
                 int vlnRegistrosAfectados = db.Execute(vlcQuery);
 
@@ -37,7 +37,7 @@ namespace DAL.Metodos
         {                                                  
             string vlcQuery = "select * from Cliente";
 
-            using (IDbConnection db = new SqlConnection(BD.Default.conexion))
+            using (IDbConnection db = new SqlConnection(@"Server = DESKTOP-6Q5GDRN\THAMES; Database = Biblioteca; User Id = esteban; Password = esteban;"))
             {
                 return db.Query<Cliente>(vlcQuery).ToList();
             }

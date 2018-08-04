@@ -1,0 +1,109 @@
+﻿<h2>Crear Cliente</h2>
+@using (Html.BeginForm("Guardar", "Cliente", FormMethod.Post, new { id = "frmCliente" }))
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-2">Identificacion</label>
+            <div class="col-md-10">
+                <input type="text" name="cli_identificacion" value="" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Nombre</label>
+            <div class="col-md-10">
+                <input type="text" name="cli_nombre" value="" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Apellido</label>
+            <div class="col-md-10">
+                <input type="text" name="cli_apellido" value="" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Correo</label>
+            <div class="col-md-10">
+                <input type="text" name="cli_correo" value="" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Fecha de Nacimiento</label>
+            <div class="col-md-10">
+                <input type="text" name="cli_fecha_nacimiento" value="" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Telefono</label>
+            <div class="col-md-10">
+                <input type="text" name="cli_telefono" value="" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Clave</label>
+            <div class="col-md-10">
+                <input type="text" name="cli_clave" value="" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Agregar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="#" onclick="pRegresar()">Atras</a>
+</div>
+
+<script>
+    $(document).ready(function () {
+        //Ajax encargado de realizar el submit del formulario de consulta
+        $("#frmCliente").on("submit", function (e) {
+            e.preventDefault();
+            pMantenimiento($(this).attr("action"), $(this).serialize())
+        });
+    });
+
+    function pMantenimiento(vloAccion, vloDatos) {
+        $.ajax({
+            url: vloAccion, //Se agrega el action del formulario
+            method: 'POST', //Se agrega el metodo de comunicación del formulario
+            data: vloDatos, //serializa toda la data del formulario para poder recibir el modelo en el controlador
+            success: function (respuesta) {
+                if (respuesta === 'AGREGADO') {
+                    alert("Cliente agregado.");
+                }
+                else {
+                    alert(respuesta);
+                }
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
+            }
+        });
+    };
+
+
+    function pRegresar() {
+        $.ajax({
+            url: '../Cliente/Index',
+            method: 'POST',
+            data: {},
+            success: function (respuesta) {
+                $('#pnlPantallas').empty();
+                $('#pnlPantallas').html(respuesta);
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
+            }
+        });
+    };
+</script>

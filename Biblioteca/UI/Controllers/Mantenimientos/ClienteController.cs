@@ -33,5 +33,24 @@ namespace UI.Controllers.Mantenimientos
                 throw;
             }
         }
+
+        public PartialViewResult Create()
+        {
+            return PartialView();
+        }
+                      
+        public JsonResult Guardar(Models.Cliente cliente)
+        {
+            try
+            {    
+                var clienteInsertar = Mapper.Map<DATA.Cliente>(cliente);
+                vloMCliente.Agregar(clienteInsertar);
+                return Json("AGREGADO");
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
     }
 }
