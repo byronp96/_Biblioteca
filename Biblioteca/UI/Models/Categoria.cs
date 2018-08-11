@@ -8,6 +8,7 @@ namespace UI.Models
 {
     public class Categoria
     {
+        
         public int cat_codigo { get; set; }
         public string cat_descripcion { get; set; }
     }

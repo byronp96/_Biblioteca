@@ -1,0 +1,160 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DATA;
+using System.Data;
+using Dapper;
+using System.Data.SqlClient;
+
+namespace DAL.Metodos
+{
+    public class MLibro
+    {
+
+        public bool Agregar(Libro vloLibro)
+        {
+            string vlcQuery = "";
+            int vlnRegistrosAfectados = 0;
+            try
+            {
+                using (IDbConnection db = new SqlConnection(BD.Default.conexion))
+                {
+                    byte[] data = vloLibro.lib_portada;
+                    // ... Convert byte array to Base64 string.
+                    string result = Convert.ToBase64String(data);
+
+                    vlcQuery = string.Format("INSERT INTO [dbo].[libro]([lib_codigo],[lib_titulo],[lib_fecha_publicacion],[lib_idioma],[lib_paginas],[lib_sinopsis],[lib_portada],[lib_estado])" +
+                                             "                   VALUES({0}         ,'{1}'         ,'{2}'                    ,'{3}'         ,{4}          ,'{5}'           ,CAST('{6}' AS NVARCHAR(MAX))          ,{7}         )", 
+                                             vloLibro.lib_codigo, vloLibro.lib_titulo, vloLibro.lib_fecha_publicacion, vloLibro.lib_idioma, vloLibro.lib_paginas, vloLibro.lib_sinopsis, result, Convert.ToInt32 (vloLibro.lib_estado));
+                    vlnRegistrosAfectados = db.Execute(vlcQuery);
+
+                    if (vlnRegistrosAfectados >= 1) return true;
+                    else return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool Actualizar(Libro vloLibro)
+        {
+            string vlcQuery = "";
+            int vlnRegistrosAfectados = 0;
+            try
+            {
+                using (IDbConnection db = new SqlConnection(BD.Default.conexion))
+                {
+                    byte[] data = vloLibro.lib_portada;
+                    // ... Convert byte array to Base64 string.
+                    string result = Convert.ToBase64String(data);
+
+                    vlcQuery = string.Format("UPDATE Libro SET lib_codigo = {0},[lib_titulo] = '{1}',[lib_fecha_publicacion] = '{2}',[lib_idioma] = '{3}',[lib_paginas] = {4},[lib_sinopsis] = '{5}',[lib_portada] = '{6}',[lib_estado] = {7} " +
+                                             "       WHERE lib_codigo = {0}",
+                                             vloLibro.lib_codigo, vloLibro.lib_titulo, vloLibro.lib_fecha_publicacion, vloLibro.lib_idioma, vloLibro.lib_paginas, vloLibro.lib_sinopsis, result, Convert.ToInt32(vloLibro.lib_estado));
+
+                    vlnRegistrosAfectados = db.Execute(vlcQuery);
+
+                    if (vlnRegistrosAfectados >= 1) return true;
+                    else return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool Eliminar(int vlnId)
+        {
+            string vlcQuery = "";
+            int vlnRegistrosAfectados = 0;
+            try
+            {
+                using (IDbConnection db = new SqlConnection(BD.Default.conexion))
+                {
+
+                    vlcQuery = string.Format("DELETE FROM Libro WHERE lib_codigo = '{0}'",
+                                                                    vlnId);
+
+                    vlnRegistrosAfectados = db.Execute(vlcQuery);
+
+                    if (vlnRegistrosAfectados >= 1) return true;
+                    else return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public List<Libro> Lista()
+        {
+            List<Libro> resultList;
+            try
+            {
+                using (var db = new SqlConnection(BD.Default.conexion))
+                {
+                    resultList = db.Query<Libro>(@"
+                    SELECT 
+[lib_codigo]
+      ,[lib_titulo]
+      ,[lib_fecha_publicacion]
+      ,[lib_idioma]
+      ,[lib_paginas]
+      ,[lib_sinopsis]
+      ,[lib_portada] AS _lib_portada
+      ,[lib_estado]
+                    FROM Libro
+                    ").ToList();
+                }
+
+                
+                
+                return resultList;
+            }
+            catch (Exception EX)
+            {
+
+                throw;
+            }
+           
+        }
+
+        public Libro Buscar(int id)
+        {
+            Libro resultList;
+            try
+            {
+                using (var db = new SqlConnection(BD.Default.conexion))
+                {
+                    return db.Query<Libro>(@"
+                    SELECT 
+[lib_codigo]
+      ,[lib_titulo]
+      ,[lib_fecha_publicacion]
+      ,[lib_idioma]
+      ,[lib_paginas]
+      ,[lib_sinopsis]
+      ,[lib_portada] AS _lib_portada
+      ,[lib_estado]
+                    FROM Libro
+                        WHERE lib_codigo = " + id).SingleOrDefault();
+
+                    resultList.lib_estado = Convert.ToBoolean(resultList.lib_estado);
+                }
+                return resultList;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
+    }
+}

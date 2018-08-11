@@ -40,8 +40,20 @@ namespace UI
             routes.MapRoute(
                name: "Categoria",
                url: "{controller}/{action}/",
-               defaults: new { controller = "Categoria", action = "Edit" }
+               defaults: new { controller = "Categoria", action = "Index" }
            );
+
+            routes.MapRoute(
+               name: "Editorial",
+               url: "{controller}/{action}/",
+               defaults: new { controller = "Editorial", action = "Index" }
+           );
+
+            routes.MapRoute(
+              name: "Libro",
+              url: "{controller}/{action}/",
+              defaults: new { controller = "Editorial", action = "Index" }
+          );
         }
     }
 }

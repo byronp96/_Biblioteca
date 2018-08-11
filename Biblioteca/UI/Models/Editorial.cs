@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UI.Models
 {
-    class Editorial
+    public class Editorial
     {
         public int edi_codigo { get; set; }
         public string edi_nombre { get; set; }

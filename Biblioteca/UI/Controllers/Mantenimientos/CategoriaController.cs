@@ -39,35 +39,36 @@ namespace UI.Controllers.Mantenimientos
         }
 
         // GET: Categoria/Create
-        public ActionResult vCreate()
+        public PartialViewResult Create()
         {
-            return View();
+            return PartialView();
         }
 
-        // POST: Categoria/Create
-        [HttpPost]
-        public ActionResult Create(Models.Categoria vloCategoria)
+        public JsonResult Guardar(Models.Categoria vloCategoria)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return View();
-                }
+
                 var _Categoria = Mapper.Map<DATA.Categoria>(vloCategoria);
 
-              
-                vloMCategoria.Agregar(_Categoria);
-                return RedirectToAction("Index");
+
+                if (vloMCategoria.Agregar(_Categoria))
+                {
+                    return Json("Agregado");
+                }
+                else
+                {
+                    return Json("Error");
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return Json(ex.Message);
             }
         }
 
         // GET: Categoria/Edit/5
-        public ActionResult vEdit(int id=1)
+        public ActionResult Edit(int id=1)
         {
             var vloCategoria = vloMCategoria.Buscar(id);
             var _Categoria = Mapper.Map<Models.Categoria>(vloCategoria);
@@ -77,41 +78,64 @@ namespace UI.Controllers.Mantenimientos
         }
 
         //POST: Categoria/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public JsonResult Editar(Models.Categoria vloCategoria)
         {
             try
             {
-                // TODO: Add update logic here
 
-                return RedirectToAction("Index");
+                var _Categoria = Mapper.Map<DATA.Categoria>(vloCategoria);
+
+
+                if (vloMCategoria.Actualizar(_Categoria))
+                {
+                    return Json("Actualizado");
+                }
+                else
+                {
+                    return Json("Error");
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return Json(ex.Message);
             }
         }
 
         // GET: Categoria/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+
+                if (vloMCategoria.Eliminar(id))
+                {
+                    return Json("Eliminado");
+                }
+                else
+                {
+                    return Json("Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
 
         // POST: Categoria/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        //[HttpPost]
+        //public ActionResult Delete(int id, FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
     }
 }

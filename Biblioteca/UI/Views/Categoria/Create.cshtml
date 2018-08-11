@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Guardar","Categoria", FormMethod.Post, new { id = "frmCategoria" }))
 {
     @Html.AntiForgeryToken()
     
@@ -40,9 +40,56 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <a href="#" onclick="pRegresar()">Atras</a>
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script>
+    $(document).ready(function () {
+        //Ajax encargado de realizar el submit del formulario de consulta
+        $("#frmCategoria").on("submit", function (e) {
+            e.preventDefault();
+            pMantenimiento($(this).attr("action"), $(this).serialize())
+        });
+    });
+
+    function pMantenimiento(vloAccion, vloDatos) {
+        $.ajax({
+            url: vloAccion, //Se agrega el action del formulario
+            method: 'POST', //Se agrega el metodo de comunicación del formulario
+            data: vloDatos, //serializa toda la data del formulario para poder recibir el modelo en el controlador
+            success: function (respuesta) {
+                if (respuesta === 'AGREGADO') {
+                    alert("Categoria agregado.");
+                }
+                else {
+                    alert(respuesta);
+                }
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
+            }
+        });
+    };
+
+
+    function pRegresar() {
+        $.ajax({
+            url: '../Categoria/Index',
+            method: 'POST',
+            data: {},
+            success: function (respuesta) {
+                $('#pnlPantallas').empty();
+                $('#pnlPantallas').html(respuesta);
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
+            }
+        });
+    };
+</script>
+
+

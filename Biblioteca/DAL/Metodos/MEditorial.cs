@@ -10,10 +10,10 @@ using System.Data.SqlClient;
 
 namespace DAL.Metodos
 {
-    public class MCategoria
+    public class MEditorial
     {
 
-        public bool Agregar(Categoria vloCategoria)
+        public bool Agregar(Editorial vloCategoria)
         {
             string vlcQuery = "";
             int vlnRegistrosAfectados = 0;
@@ -22,8 +22,8 @@ namespace DAL.Metodos
                 using (IDbConnection db = new SqlConnection(BD.Default.conexion))
                 {
 
-                    vlcQuery = string.Format("Insert Into Categoria (cat_descripcion) Values('{0}')", 
-                                                                    vloCategoria.cat_descripcion);
+                    vlcQuery = string.Format("Insert Into editorial (edi_nombre) Values('{0}')", 
+                                                                    vloCategoria.edi_nombre);
 
                     vlnRegistrosAfectados = db.Execute(vlcQuery);
 
@@ -37,7 +37,7 @@ namespace DAL.Metodos
             }
         }
 
-        public bool Actualizar(Categoria vloCategoria)
+        public bool Actualizar(Editorial vloCategoria)
         {
             string vlcQuery = "";
             int vlnRegistrosAfectados = 0;
@@ -46,8 +46,8 @@ namespace DAL.Metodos
                 using (IDbConnection db = new SqlConnection(BD.Default.conexion))
                 {
 
-                    vlcQuery = string.Format("UPDATE Categoria SET cat_descripcion = '{0}' WHERE cat_codigo = '{1}'",
-                                                                    vloCategoria.cat_descripcion, vloCategoria.cat_codigo);
+                    vlcQuery = string.Format("UPDATE editorial SET edi_nombre = '{0}' WHERE edi_codigo = '{1}'",
+                                                                    vloCategoria.edi_nombre, vloCategoria.edi_codigo);
 
                     vlnRegistrosAfectados = db.Execute(vlcQuery);
 
@@ -70,7 +70,7 @@ namespace DAL.Metodos
                 using (IDbConnection db = new SqlConnection(BD.Default.conexion))
                 {
 
-                    vlcQuery = string.Format("DELETE FROM Categoria WHERE cat_codigo = '{0}'",
+                    vlcQuery = string.Format("DELETE FROM editorial WHERE edi_codigo = '{0}'",
                                                                     vlnId);
 
                     vlnRegistrosAfectados = db.Execute(vlcQuery);
@@ -85,39 +85,38 @@ namespace DAL.Metodos
             }
         }
 
-        public List<Categoria> Lista()
+        public List<Editorial> Lista()
         {
-            List<Categoria> resultList;
+            List<Editorial> resultList;
             try
             {
                 using (var db = new SqlConnection(BD.Default.conexion))
                 {
-                    resultList = db.Query<Categoria>(@"
+                    resultList = db.Query<Editorial>(@"
                     SELECT * 
-                    FROM Categoria
+                    FROM editorial
                     ").ToList();
                 }
                 return resultList;
             }
-            catch (Exception EX)
+            catch (Exception ex)
             {
-
-                throw;
+                throw ex;
             }
            
         }
 
-        public Categoria Buscar(int id)
+        public Editorial Buscar(int id)
         {
-            Categoria resultList;
+            Editorial resultList;
             try
             {
                 using (var db = new SqlConnection(BD.Default.conexion))
                 {
-                    return db.Query<Categoria>(@"
+                    return db.Query<Editorial>(@"
                     SELECT * 
-                        FROM Categoria
-                        WHERE cat_codigo = '"+ id +"'").SingleOrDefault();
+                        FROM editorial 
+                        WHERE edi_codigo = "+ id).SingleOrDefault();
 
                 }
                 return resultList;

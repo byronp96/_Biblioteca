@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UI.Models
 {
-    class Libro
+    public class Libro
     {
         public int lib_codigo { get; set; }
         public string lib_titulo { get; set; }
@@ -15,6 +15,7 @@ namespace UI.Models
         public int lib_paginas { get; set; }
         public string lib_sinopsis { get; set; }
         public byte[] lib_portada { get; set; }
-        public int lib_estado { get; set; }
+        public string _lib_portada { get; set; }
+        public bool lib_estado { get; set; }
     }
 }

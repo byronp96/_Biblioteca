@@ -1,9 +1,9 @@
-﻿@model IEnumerable<UI.Models.Categoria>
+﻿@model IEnumerable<UI.Models.Editorial>
 
 @{
     ViewBag.Title = "Index";
 }
-<div id="contenedor_cliente">
+<div id="contenedor_editorial">
     <h2>Index</h2>
 
     <p>
@@ -13,10 +13,10 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.cat_codigo)
+                @Html.DisplayNameFor(model => model.edi_codigo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.cat_descripcion)
+                @Html.DisplayNameFor(model => model.edi_nombre)
             </th>
             <th></th>
         </tr>
@@ -25,15 +25,15 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.cat_codigo)
+                    @Html.DisplayFor(modelItem => item.edi_codigo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.cat_descripcion)
+                    @Html.DisplayFor(modelItem => item.edi_nombre)
                 </td>
                 <td>
                     <a href="#" class="btn-link" onclick="pEditar()">Editar</a>
                     |
-                    <a href="#" class="btn-link" onclick="pEliminar(@item.cat_codigo)">Borrar</a>
+                    <a href="#" class="btn-link" onclick="pEliminar(@item.edi_codigo)">Borrar</a>
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.cat_codigo }) |
                         @Html.ActionLink("Details", "Details", new { id = item.cat_codigo }) |
                         @Html.ActionLink("Delete", "Delete", new { id = item.cat_codigo })*@
@@ -43,19 +43,19 @@
 
     </table>
     </div>
-    <div id="detalle_cliente">
+    <div id="detalle_editorial">
 
     </div>
     <script>
         function pAgregar() {
             $.ajax({
-                url: '../Categoria/Create',
+                url: '../Editorial/Create',
                 method: 'POST',
                 data: {},
                 success: function (respuesta) {
-                    $('#detalle_cliente').html(respuesta);
-                    $('#contenedor_cliente').addClass('hide');
-                    $('#detalle_cliente').removeClass('hide');
+                    $('#detalle_editorial').html(respuesta);
+                    $('#contenedor_editorial').addClass('hide');
+                    $('#detalle_editorial').removeClass('hide');
                 },
                 error: function (respuesta) {
                     console.log(respuesta);
@@ -65,13 +65,13 @@
 
         function pEditar() {
             $.ajax({
-                url: '../Categoria/Edit',
+                url: '../Editorial/Edit',
                 method: 'POST',
                 data: {},
                 success: function (respuesta) {
-                    $('#detalle_cliente').html(respuesta);
-                    $('#contenedor_cliente').addClass('hide');
-                    $('#detalle_cliente').removeClass('hide');
+                    $('#detalle_editorial').html(respuesta);
+                    $('#contenedor_editorial').addClass('hide');
+                    $('#detalle_editorial').removeClass('hide');
                 },
                 error: function (respuesta) {
                     console.log(respuesta);
@@ -108,6 +108,8 @@
                 }
             });
         };
+
+
     </script>
 
 
