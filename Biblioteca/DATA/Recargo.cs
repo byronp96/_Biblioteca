@@ -16,6 +16,6 @@ namespace DATA
 
         public int rec_estado { get; set; }
 
-        public decimal rec_monto { get; set; }
+        public int rec_monto { get; set; }
     }
 }

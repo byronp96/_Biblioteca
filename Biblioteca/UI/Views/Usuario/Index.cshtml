@@ -1,0 +1,131 @@
+﻿@model IEnumerable<UI.Models.Usuario>
+<div id="contenedor_usuario">
+    <h2>Mantenimiento de Usuario</h2>
+    <p>
+        <a href="#" onclick="pAgregar()">Agregar Usuario</a>
+    </p>
+    <table class="table">
+        <tr>
+            <th style="width:100px;">
+                Identificacion
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Apellido
+            </th>
+            <th>
+                Correo
+            </th>
+            <th>
+                Fecha Nacimiento
+            </th>
+            <th>
+                Telefono
+            </th>
+            <th>
+                Clave
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.usu_identificacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.usu_nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.usu_apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.usu_correo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.usu_fecha_nacimiento).ToString().Substring(0, 10)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.usu_telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.usu_clave)
+                </td>
+                <td>
+                    <a href="#" class="btn-link" onclick="pEditar(@item.usu_identificacion)"><i class="fa fa-fw fa-edit"></i></a>
+                    |
+                    <a href="#" class="btn-link" onclick="pEliminar(@item.usu_identificacion)"><i class="fa fa-fw fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div id="detalle_usuario">
+
+</div>
+<script>
+    function pAgregar() {
+        $.ajax({
+            url: '../Usuario/Create',
+            method: 'POST',
+            data: {},
+            success: function (respuesta) {
+                $('#detalle_usuario').html(respuesta);
+                $('#contenedor_usuario').addClass('hide');
+                $('#detalle_usuario').removeClass('hide');
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
+            }
+        });
+    };
+    function pEditar(pvnId) {
+        $.ajax({
+            url: '../Usuario/Edit',
+            method: 'POST',
+            data: { id: pvnId },
+            success: function (respuesta) {
+                $('#detalle_usuario').html(respuesta);
+                $('#contenedor_usuario').addClass('hide');
+                $('#detalle_usuario').removeClass('hide');
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
+            }
+        });
+    };
+
+    function pEliminar(pvnId) {
+        $.ajax({
+            url: '../Usuario/Delete',
+            method: 'POST',
+            data: { id: pvnId },
+            success: function (respuesta) {
+                alert(respuesta);
+                pInicio();
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
+            }
+        });
+    };
+
+    function pInicio() {
+        $.ajax({
+            url: '../Usuario/Index',
+            method: 'POST',
+            data: {},
+            success: function (respuesta) {
+                $('#pnlPantallas').empty();
+                $('#pnlPantallas').html(respuesta);
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
+            }
+        });
+    };
+</script>

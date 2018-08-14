@@ -6,26 +6,25 @@ using System.Web.Mvc;
 using DAL.Metodos;
 using AutoMapper;
 
-
 namespace UI.Controllers.Mantenimientos
 {
-    public class ClienteController : Controller
+    public class UsuarioController : Controller
     {
-        private MCliente vloMCliente;
+        private MUsuario vloMUsuario;
 
-        public ClienteController()
+        public UsuarioController()
         {
-            vloMCliente = new MCliente();
+            vloMUsuario = new MUsuario();
         }
 
-        // GET: Cliente
+        // GET: Usuario
         public ActionResult Index()
         {
             try
             {
-                var _Cliente = vloMCliente.Listar();
-                var vloLista = Mapper.Map<List<Models.Cliente>>(_Cliente);
-                return PartialView("../../Views/Cliente/Index", vloLista);
+                var _Usuario = vloMUsuario.Listar();
+                var vloLista = Mapper.Map<List<Models.Usuario>>(_Usuario);
+                return PartialView("../../Views/Usuario/Index", vloLista);
             }
             catch (Exception ex)
             {
@@ -38,13 +37,13 @@ namespace UI.Controllers.Mantenimientos
         {
             return PartialView();
         }
-                      
-        public JsonResult Guardar(Models.Cliente cliente)
+
+        public JsonResult Guardar(Models.Usuario Usuario)
         {
             try
-            {                            
-                var _Cliente = Mapper.Map<DATA.Cliente>(cliente);      
-                if (vloMCliente.Agregar(_Cliente))
+            {
+                var _Usuario = Mapper.Map<DATA.Usuario>(Usuario);
+                if (vloMUsuario.Agregar(_Usuario))
                 {
                     return Json("AGREGADO");
                 }
@@ -61,22 +60,22 @@ namespace UI.Controllers.Mantenimientos
 
         public ActionResult Edit(string id = "1")
         {
-            var vloCliente = vloMCliente.Buscar(id);
-            var _Cliente = Mapper.Map<Models.Cliente>(vloCliente);
+            var vloUsuario = vloMUsuario.Buscar(id);
+            var _Usuario = Mapper.Map<Models.Usuario>(vloUsuario);
 
 
-            return PartialView("../../Views/Cliente/Edit", _Cliente);
+            return PartialView("../../Views/Usuario/Edit", _Usuario);
         }
 
-        public JsonResult Editar(Models.Cliente vloCliente)
+        public JsonResult Editar(Models.Usuario vloUsuario)
         {
             try
             {
 
-                var _Cliente = Mapper.Map<DATA.Cliente>(vloCliente);
+                var _Usuario = Mapper.Map<DATA.Usuario>(vloUsuario);
 
 
-                if (vloMCliente.Actualizar(_Cliente))
+                if (vloMUsuario.Actualizar(_Usuario))
                 {
                     return Json("ACTUALIZADO");
                 }
@@ -96,7 +95,7 @@ namespace UI.Controllers.Mantenimientos
             try
             {
 
-                if (vloMCliente.Eliminar(id))
+                if (vloMUsuario.Eliminar(id))
                 {
                     return Json("ELIMINADO");
                 }

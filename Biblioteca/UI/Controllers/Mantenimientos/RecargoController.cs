@@ -6,26 +6,25 @@ using System.Web.Mvc;
 using DAL.Metodos;
 using AutoMapper;
 
-
 namespace UI.Controllers.Mantenimientos
 {
-    public class ClienteController : Controller
+    public class RecargoController : Controller
     {
-        private MCliente vloMCliente;
+        private MRecargo vloMRecargo;
 
-        public ClienteController()
+        public RecargoController()
         {
-            vloMCliente = new MCliente();
+            vloMRecargo = new MRecargo();
         }
 
-        // GET: Cliente
+        // GET: Recargo
         public ActionResult Index()
         {
             try
             {
-                var _Cliente = vloMCliente.Listar();
-                var vloLista = Mapper.Map<List<Models.Cliente>>(_Cliente);
-                return PartialView("../../Views/Cliente/Index", vloLista);
+                var _Recargo = vloMRecargo.Listar();
+                var vloLista = Mapper.Map<List<Models.Recargo>>(_Recargo);
+                return PartialView("../../Views/Recargo/Index", vloLista);
             }
             catch (Exception ex)
             {
@@ -38,13 +37,13 @@ namespace UI.Controllers.Mantenimientos
         {
             return PartialView();
         }
-                      
-        public JsonResult Guardar(Models.Cliente cliente)
+
+        public JsonResult Guardar(Models.Recargo Recargo)
         {
             try
-            {                            
-                var _Cliente = Mapper.Map<DATA.Cliente>(cliente);      
-                if (vloMCliente.Agregar(_Cliente))
+            {
+                var _Recargo = Mapper.Map<DATA.Recargo>(Recargo);
+                if (vloMRecargo.Agregar(_Recargo))
                 {
                     return Json("AGREGADO");
                 }
@@ -59,24 +58,24 @@ namespace UI.Controllers.Mantenimientos
             }
         }
 
-        public ActionResult Edit(string id = "1")
+        public ActionResult Edit(int id = 1)
         {
-            var vloCliente = vloMCliente.Buscar(id);
-            var _Cliente = Mapper.Map<Models.Cliente>(vloCliente);
+            var vloRecargo = vloMRecargo.Buscar(id);
+            var _Recargo = Mapper.Map<Models.Recargo>(vloRecargo);
 
 
-            return PartialView("../../Views/Cliente/Edit", _Cliente);
+            return PartialView("../../Views/Recargo/Edit", _Recargo);
         }
 
-        public JsonResult Editar(Models.Cliente vloCliente)
+        public JsonResult Editar(Models.Recargo vloRecargo)
         {
             try
             {
 
-                var _Cliente = Mapper.Map<DATA.Cliente>(vloCliente);
+                var _Recargo = Mapper.Map<DATA.Recargo>(vloRecargo);
 
 
-                if (vloMCliente.Actualizar(_Cliente))
+                if (vloMRecargo.Actualizar(_Recargo))
                 {
                     return Json("ACTUALIZADO");
                 }
@@ -91,12 +90,12 @@ namespace UI.Controllers.Mantenimientos
             }
         }
 
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
             try
             {
 
-                if (vloMCliente.Eliminar(id))
+                if (vloMRecargo.Eliminar(id))
                 {
                     return Json("ELIMINADO");
                 }
