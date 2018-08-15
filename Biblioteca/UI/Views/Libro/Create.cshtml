@@ -1,0 +1,191 @@
+﻿@model UI.Models.Libro
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm("Guardar", "Libro", FormMethod.Post, new { id = "frmLibro" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Libro</h4>
+        <hr />
+        <div class="row">
+            <div class="col-sm-6">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.lib_codigo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.lib_codigo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.lib_codigo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.lib_titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.lib_titulo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.lib_titulo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.lib_fecha_publicacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.lib_fecha_publicacion, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.lib_fecha_publicacion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.lib_idioma, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.lib_idioma, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.lib_idioma, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.lib_paginas, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.lib_paginas, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.lib_paginas, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.lib_sinopsis, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.lib_sinopsis, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.lib_sinopsis, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Portada</label>
+                    <div class="col-md-10">
+                        <input type="file" name="imgPortada" value="" id="imgPortada" onchange="pConvertirImagenBase64(this)" />
+
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model._lib_portada, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model._lib_portada, new { htmlAttributes = new { @class = "form-control", id = "txtPortada" } })
+                        @Html.ValidationMessageFor(model => model._lib_portada, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.lib_estado, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.lib_estado)
+                            @Html.ValidationMessageFor(model => model.lib_estado, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <img src="#" alt="Alternate Text" id="imgLibro"/>
+            </div>
+        </div>
+        </div>
+}
+
+<div>
+    <a href="#" onclick="pRegresar()">Volver</a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+     $(document).ready(function () {
+         //Ajax encargado de realizar el submit del formulario de consulta
+         $("#frmCliente").on("submit", function (e) {
+             e.preventDefault();
+             pMantenimiento($(this).attr("action"), $(this).serialize())
+         });
+     });
+
+     function pMantenimiento(vloAccion, vloDatos) {
+         $.ajax({
+             url: vloAccion, //Se agrega el action del formulario
+             method: 'POST', //Se agrega el metodo de comunicación del formulario
+             data: vloDatos, //serializa toda la data del formulario para poder recibir el modelo en el controlador
+             success: function (respuesta) {
+                 if (respuesta === 'AGREGADO') {
+                     alert("Cliente agregado.");
+                 }
+                 else {
+                     alert(respuesta);
+                 }
+             },
+             error: function (respuesta) {
+                 console.log(respuesta);
+             }
+         });
+     };
+
+
+
+
+     function pRegresar() {
+         $.ajax({
+             url: '../Libro/Index',
+             method: 'POST',
+             data: {},
+             success: function (respuesta) {
+                 $('#pnlPantallas').empty();
+                 $('#pnlPantallas').html(respuesta);
+             },
+             error: function (respuesta) {
+                 console.log(respuesta);
+             }
+         });
+     };
+
+     //Convierte una imagen a Base64
+     function pConvertirImagenBase64(element) {
+         debugger;
+         //var element = document.getElementById('imgPortada').files[0];
+         var vloFile = element.files[0];
+         var vloReader = new FileReader();
+         //validar tamaño de imagen
+         var fileSize = element.files[0].size;
+         var siezekiloByte = parseInt(fileSize / 1024);
+         //si el tamaño es mayor de de 10 kb la imagen no se agrega
+         if (siezekiloByte > 1000) {
+             alert('El tamaño máximo permitido para imagenes es de 10Kb');
+             vlbCambioImagen = false;
+             return false;
+         } else {
+             //convierte imagen
+             vlbCambioImagen = true;
+             vloReader.onloadend = function () {
+                 debugger;
+                 $('#txtPortada').val(vloReader.result.split(",")[1]);
+                 //$('#frmRespuesta #res_tipo_imagen').val('');
+                 // pMostrarImagen();
+                 pMostrarImagen(vloReader.result.split(",")[1]);
+             }
+             vloReader.readAsDataURL(vloFile);
+         }
+     }
+     function pMostrarImagen(imagen) {
+         debugger;
+         $('#imgLibro').attr('src', '');
+         $('#imgLibro').attr('src', 'data:image/png;base64,' + imagen);
+     }
+</script>

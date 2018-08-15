@@ -1,0 +1,175 @@
+﻿@model IEnumerable<UI.Models.Libro>
+
+@{
+    ViewBag.Title = "Libro";
+}
+<div id="contenedor_libro">
+    <h2>Libro</h2>
+
+    <p>
+        <a href="#" onclick="pAgregar()">Agregar Libro</a>
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.lib_codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lib_titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lib_fecha_publicacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lib_idioma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lib_paginas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lib_sinopsis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lib_estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lib_portada)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lib_codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lib_titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lib_fecha_publicacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lib_idioma)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lib_paginas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lib_sinopsis)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lib_estado)
+                </td>
+                <td>
+                    
+                    <img class="img-thumbnail" src="data:image/png;base64,  @item._lib_portada" alt="Alternate Text" id="img" style="width:20%; height:20%"/>
+                </td>
+                <td>
+                    <a href="#" class="btn-link" onclick="pEditar(@item.lib_codigo)">Editar</a>
+                    |
+                    <a href="#" class="btn-link" onclick="pEliminar(@item.lib_codigo)">Borrar</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div id="detalle_libro">
+
+</div>
+
+    <script>
+        function pMostrarImagen() {
+            //si la imagen viene de la BD se carga sino, si es una imagen nueva se muestra, sino se muestra imagen default
+            if ($('#res_tipo_imagen').val() != "") {
+                $('#imagen1').attr("src", $('#res_tipo_imagen').val());
+                $('#res_imagen').val($('#res_tipo_imagen').val());
+            } else {
+                if ($('#res_imagen').val() != "") {
+                    $('#img').attr("src", $('#res_imagen').val());
+                } else {
+                    $('#img').attr("src", 'http://icons.iconarchive.com/icons/gakuseisean/aire/256/Search-Images-icon.png');
+                }
+            }
+        }//fin pMost
+        function pAgregar() {
+            $.ajax({
+                url: '../Libro/Create',
+                method: 'POST',
+                data: {},
+                success: function (respuesta) {
+                    $('#detalle_libro').html(respuesta);
+                    $('#contenedor_libro').addClass('hide');
+                    $('#detalle_libro').removeClass('hide');
+                },
+                error: function (respuesta) {
+                    console.log(respuesta);
+                }
+            });
+        };
+
+        function pEditar(pvcId) {
+            $.ajax({
+                url: '../Libro/Edit',
+                method: 'POST',
+                data: {id: pvcId},
+                success: function (respuesta) {
+                    $('#detalle_libro').html(respuesta);
+                    $('#contenedor_libro').addClass('hide');
+                    $('#detalle_libro').removeClass('hide');
+                },
+                error: function (respuesta) {
+                    console.log(respuesta);
+                }
+            });
+        };
+
+        function pEliminar(pvnId) {
+            $.ajax({
+                url: '../Libro/Delete',
+                method: 'POST',
+                data: { id: pvnId },
+                success: function (respuesta) {
+                    alert(respuesta);
+                    pInicio();
+                },
+                error: function (respuesta) {
+                    console.log(respuesta);
+                }
+            });
+        };
+
+        function pInicio() {
+            $.ajax({
+                url: '../Libro/Index',
+                method: 'POST',
+                data: {},
+                success: function (respuesta) {
+                    $('#pnlPantallas').empty();
+                    $('#pnlPantallas').html(respuesta);
+                },
+                error: function (respuesta) {
+                    console.log(respuesta);
+                }
+            });
+        };
+
+        function setBase64ToImage() {
+
+            var baseString = $("#base64string").val().trim();
+            // data:image/png;base64
+
+            if (baseString.substring(0, 4) != "data") {
+                baseString = "data:image/png;base64," + baseString;
+            }
+
+            $("#base64Img").prop('src', baseString);
+            $("#base64Img").addClass("span12 baseurlopa2");
+            $("#dwnldLink").show();
+            $("#dwnldLink").prop('href', baseString);
+        }
+    </script>
+

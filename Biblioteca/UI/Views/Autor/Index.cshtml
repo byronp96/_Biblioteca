@@ -1,0 +1,142 @@
+﻿@model IEnumerable<UI.Models.Autor>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div id="contenedor_autor">
+    <h2>Index</h2>
+
+    <p>
+        <a href="#" onclick="pAgregar()">Agregar Autor</a>
+    </p>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.aut_codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.aut_nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.aut_apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.aut_fecha_nacimiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.aut_nacionalidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model._aut_foto)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.aut_codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.aut_nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.aut_apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.aut_fecha_nacimiento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.aut_nacionalidad)
+                </td>
+                <td>
+                    <img class="img-thumbnail" src="data:image/png;base64,  @item._aut_foto" alt="Alternate Text" id="img" style="width:20%; height:20%" />
+                </td>
+                <td>
+                    <a href="#" class="btn-link" onclick="pEditar(@item.aut_codigo)">Editar</a>
+                    |
+                    <a href="#" class="btn-link" onclick="pEliminar(@item.aut_codigo)">Borrar</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div id="detalle_autor">
+
+</div>
+
+<script>
+    function pAgregar() {
+            pBloquearPantalla();
+             $.ajax({
+                url: '../Autor/Create',
+                method: 'POST',
+                data: {},
+                success: function (respuesta) {
+                    $('#detalle_autor').html(respuesta);
+                    $('#contenedor_autor').addClass('hide');
+                    $('#detalle_autor').removeClass('hide');
+                    pDesbloquearPantalla();
+                },
+                error: function (respuesta) {
+                    console.log(respuesta);
+                }
+            });
+        };
+
+        function pEditar(vlcId) {
+            pBloquearPantalla();
+            $.ajax({
+                url: '../Autor/Edit',
+                method: 'POST',
+                data: { id: vlcId},
+                success: function (respuesta) {
+                    $('#detalle_autor').html(respuesta);
+                    $('#contenedor_autor').addClass('hide');
+                    $('#detalle_autor').removeClass('hide');
+                    pDesbloquearPantalla();
+                },
+                error: function (respuesta) {
+                    console.log(respuesta);
+                }
+            });
+        };
+
+        function pEliminar(pvnId) {
+            pBloquearPantalla();
+            $.ajax({
+                url: '../Autor/Delete',
+                method: 'POST',
+                data: { id: pvnId},
+                success: function (respuesta) {
+                    alert(respuesta);
+                    pInicio();
+                    pDesbloquearPantalla();
+                },
+                error: function (respuesta) {
+                    console.log(respuesta);
+                }
+            });
+        };
+
+        function pInicio() {
+            $.ajax({
+                url: '../Autor/Index',
+                method: 'POST',
+                data: {},
+                success: function (respuesta) {
+                    $('#pnlPantallas').empty();
+                    $('#pnlPantallas').html(respuesta);
+                },
+                error: function (respuesta) {
+                    console.log(respuesta);
+                }
+            });
+        };
+</script>
+
+
