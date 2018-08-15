@@ -1,53 +1,55 @@
-﻿<h2>Crear Cliente</h2>
-@using (Html.BeginForm("Guardar", "Cliente", FormMethod.Post, new { id = "frmCliente" }))
+﻿@model UI.Models.Usuario
+<h2>Crear Usuario</h2>
+@using (Html.BeginForm("Guardar", "Usuario", FormMethod.Post, new { id = "frmUsuario" }))
 {
     <div class="form-horizontal">
+        
         <div class="form-group">
             <label class="control-label col-md-2">Identificacion</label>
             <div class="col-md-10">
-                <input type="text" name="cli_identificacion" value="" class="form-control" autocomplete="off" />
+                <input type="text" name="usu_identificacion" value="" class="form-control" autocomplete="off" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-2">Nombre</label>
             <div class="col-md-10">
-                <input type="text" name="cli_nombre" value="" class="form-control" autocomplete="off" />
+                <input type="text" name="usu_nombre" value="" class="form-control" autocomplete="off" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-2">Apellido</label>
             <div class="col-md-10">
-                <input type="text" name="cli_apellido" value="" class="form-control" autocomplete="off" />
+                <input type="text" name="usu_apellido" value="" class="form-control" autocomplete="off" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-2">Correo</label>
             <div class="col-md-10">
-                <input type="text" name="cli_correo" value="" class="form-control" autocomplete="off" />
+                <input type="text" name="usu_correo" value="" class="form-control" autocomplete="off" />
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2">Fecha de Nacimiento</label>
+            <label class="control-label col-md-2">Fecha Nacimiento</label>
             <div class="col-md-10">
-                <input type="text" name="cli_fecha_nacimiento" value="" class="form-control" autocomplete="off" />
+                <input type="text" name="usu_fecha_nacimiento" value="" class="form-control" autocomplete="off" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-2">Telefono</label>
             <div class="col-md-10">
-                <input type="text" name="cli_telefono" value="" class="form-control" autocomplete="off" />
+                <input type="text" name="usu_telefono" value="" class="form-control" autocomplete="off" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-2">Clave</label>
             <div class="col-md-10">
-                <input type="text" name="cli_clave" value="" class="form-control" autocomplete="off" />
+                <input type="password" name="usu_clave" value="" class="form-control" autocomplete="off" />
             </div>
         </div>
 
@@ -66,7 +68,7 @@
 <script>
     $(document).ready(function () {
         //Ajax encargado de realizar el submit del formulario de consulta
-        $("#frmCliente").on("submit", function (e) {
+        $("#frmUsuario").on("submit", function (e) {
             e.preventDefault();
             pMantenimiento($(this).attr("action"), $(this).serialize())
         });
@@ -79,7 +81,7 @@
             data: vloDatos, //serializa toda la data del formulario para poder recibir el modelo en el controlador
             success: function (respuesta) {
                 if (respuesta === 'AGREGADO') {
-                    alert("Cliente agregado.");
+                    alert("Usuario agregado.");
                 }
                 else {
                     alert(respuesta);
@@ -96,7 +98,7 @@
 
     function pRegresar() {
         $.ajax({
-            url: '../Cliente/Index',
+            url: '../Usuario/Index',
             method: 'POST',
             data: {},
             success: function (respuesta) {

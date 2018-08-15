@@ -1,0 +1,109 @@
+﻿@model IEnumerable<UI.Models.Recargo>
+
+<div id="contenedor_recargo">
+    <h2>Mantenimiento de Recargo</h2>
+
+    <p>
+        <a href="#" onclick="pAgregar()">Agregar Recargo</a>
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                Descripcion
+            </th>
+            <th>
+                Estado
+            </th>
+            <th>
+                Monto
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.rec_descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.rec_estado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.rec_monto)
+                </td>
+                <td>
+                    <a href="#" class="btn-link" onclick="pEditar(@item.rec_codigo)"><i class="fa fa-fw fa-edit"></i></a>
+                    |
+                    <a href="#" class="btn-link" onclick="pEliminar(@item.rec_codigo)"><i class="fa fa-fw fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div id="detalle_recargo">
+
+</div>
+<script>
+    function pAgregar() {
+        $.ajax({
+            url: '../Recargo/Create',
+            method: 'POST',
+            data: {},
+            success: function (respuesta) {
+                $('#detalle_recargo').html(respuesta);
+                $('#contenedor_recargo').addClass('hide');
+                $('#detalle_recargo').removeClass('hide');
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
+            }
+        });
+    };
+    function pEditar(pvnId) {
+        $.ajax({
+            url: '../Recargo/Edit',
+            method: 'POST',
+            data: { id: pvnId },
+            success: function (respuesta) {
+                $('#detalle_recargo').html(respuesta);
+                $('#contenedor_recargo').addClass('hide');
+                $('#detalle_recargo').removeClass('hide');
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
+            }
+        });
+    };
+
+    function pEliminar(pvnId) {
+        $.ajax({
+            url: '../Recargo/Delete',
+            method: 'POST',
+            data: { id: pvnId },
+            success: function (respuesta) {
+                alert(respuesta);
+                pInicio();
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
+            }
+        });
+    };
+
+    function pInicio() {
+        $.ajax({
+            url: '../Recargo/Index',
+            method: 'POST',
+            data: {},
+            success: function (respuesta) {
+                $('#pnlPantallas').empty();
+                $('#pnlPantallas').html(respuesta);
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
+            }
+        });
+    };
+</script>

@@ -1,68 +1,71 @@
-﻿<h2>Crear Cliente</h2>
-@using (Html.BeginForm("Guardar", "Cliente", FormMethod.Post, new { id = "frmCliente" }))
+﻿@model UI.Models.Cliente
+<h2>Editar Cliente</h2>
+@using (Html.BeginForm("Editar", "Cliente", FormMethod.Post, new { id = "frmCliente" }))
 {
+    @Html.AntiForgeryToken()
+    
     <div class="form-horizontal">
+
         <div class="form-group">
             <label class="control-label col-md-2">Identificacion</label>
             <div class="col-md-10">
-                <input type="text" name="cli_identificacion" value="" class="form-control" autocomplete="off" />
+                <input type="text" name="cli_identificacion" value="@Model.cli_identificacion" class="form-control" autocomplete="off" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-2">Nombre</label>
             <div class="col-md-10">
-                <input type="text" name="cli_nombre" value="" class="form-control" autocomplete="off" />
+                <input type="text" name="cli_nombre" value="@Model.cli_nombre" class="form-control" autocomplete="off" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-2">Apellido</label>
             <div class="col-md-10">
-                <input type="text" name="cli_apellido" value="" class="form-control" autocomplete="off" />
+                <input type="text" name="cli_apellido" value="@Model.cli_apellido" class="form-control" autocomplete="off" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-2">Correo</label>
             <div class="col-md-10">
-                <input type="text" name="cli_correo" value="" class="form-control" autocomplete="off" />
+                <input type="text" name="cli_correo" value="@Model.cli_correo" class="form-control" autocomplete="off" />
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2">Fecha de Nacimiento</label>
+            <label class="control-label col-md-2">Fecha Nacimiento</label>
             <div class="col-md-10">
-                <input type="text" name="cli_fecha_nacimiento" value="" class="form-control" autocomplete="off" />
+                <input type="text" name="cli_fecha_nacimiento" value="@Model.cli_fecha_nacimiento.ToString("dd/MM/yyyy")" class="form-control" autocomplete="off" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-2">Telefono</label>
             <div class="col-md-10">
-                <input type="text" name="cli_telefono" value="" class="form-control" autocomplete="off" />
+                <input type="text" name="cli_telefono" value="@Model.cli_telefono" class="form-control" autocomplete="off" />
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-2">Clave</label>
             <div class="col-md-10">
-                <input type="text" name="cli_clave" value="" class="form-control" autocomplete="off" />
+                <input type="password" name="cli_clave" value="@Model.cli_clave" class="form-control" autocomplete="off" />
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Agregar" class="btn btn-default" autocomplete="off" />
+                <input type="submit" value="Guardar" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    <a href="#" onclick="pRegresar()">Atras</a>
+<div class="col-md-offset-2 col-md-10">
+    <a href="#" onclick="pRegresar()" >Atras</a>
 </div>
-
 <script>
     $(document).ready(function () {
         //Ajax encargado de realizar el submit del formulario de consulta
@@ -79,7 +82,7 @@
             data: vloDatos, //serializa toda la data del formulario para poder recibir el modelo en el controlador
             success: function (respuesta) {
                 if (respuesta === 'AGREGADO') {
-                    alert("Cliente agregado.");
+                    alert("Cliente modificado.");
                 }
                 else {
                     alert(respuesta);
@@ -90,8 +93,6 @@
             }
         });
     };
-
-
 
 
     function pRegresar() {
