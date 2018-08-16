@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -14,7 +15,7 @@ namespace UI.Models
         public string usu_nombre { get; set; }
 
         public string usu_apellido { get; set; }
-
+        [EmailAddress(ErrorMessage = "Debe ser un correo valido")]
         public string usu_correo { get; set; }
 
         public DateTime usu_fecha_nacimiento { get; set; }

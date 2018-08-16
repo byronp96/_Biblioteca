@@ -50,10 +50,6 @@
     <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DAL\bin\Debug\DAL.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -151,9 +147,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\BibliotecaController.cs" />
+    <Compile Include="Controllers\EntrarController.cs" />
     <Compile Include="Controllers\Mantenimientos\CategoriaController.cs" />
     <Compile Include="Controllers\Mantenimientos\ClienteController.cs" />
+    <Compile Include="Controllers\Mantenimientos\EditorialController.cs" />
+    <Compile Include="Controllers\Mantenimientos\LibroController.cs" />
+    <Compile Include="Controllers\Mantenimientos\RecargoController.cs" />
+    <Compile Include="Controllers\Mantenimientos\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -162,7 +163,6 @@
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Editorial.cs" />
     <Compile Include="Models\Libro.cs" />
-    <Compile Include="Models\Permiso.cs" />
     <Compile Include="Models\Recargo.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -308,12 +308,27 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Categoria\Create.cshtml" />
     <Content Include="Views\Categoria\Index.cshtml" />
     <Content Include="Views\Categoria\Edit.cshtml" />
+    <Content Include="Views\Biblioteca\biblioteca.cshtml" />
+    <Content Include="Views\Biblioteca\Principal.cshtml" />
+    <Content Include="Views\Entrar\IniciarSesion.cshtml" />
+    <Content Include="Views\Entrar\Registrarse.cshtml" />
+    <Content Include="Views\Editorial\Create.cshtml" />
+    <Content Include="Views\Editorial\Edit.cshtml" />
+    <Content Include="Views\Editorial\Index.cshtml" />
+    <Content Include="Views\Cliente\Create.cshtml" />
+    <Content Include="Views\Cliente\Edit.cshtml" />
+    <Content Include="Views\Cliente\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout_Entrar.cshtml" />
+    <Content Include="Views\Recargo\Create.cshtml" />
+    <Content Include="Views\Recargo\Edit.cshtml" />
+    <Content Include="Views\Recargo\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout_Principal.cshtml" />
+    <Content Include="Views\Usuario\Create.cshtml" />
+    <Content Include="Views\Usuario\Edit.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -333,6 +348,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{955dc6de-20fa-4a77-962c-62e9e7f65c62}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DATA\DATA.csproj">
       <Project>{e4710938-cde4-41cd-806f-6639468791a3}</Project>
       <Name>DATA</Name>
