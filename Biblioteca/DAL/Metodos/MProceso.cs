@@ -11,7 +11,7 @@ namespace DAL.Metodos
 {
     public class MProceso
     {
-       public int AgregarPrestamo(int cli_codigo, int lib_codigo )
+       public int AgregarPrestamo(int cli_codigo, int lib_codigo, DateTime pre_fecha_inicio, DateTime pre_fecha_fin, int pre_estado)
         {
             string vlcQuery = "";
             int vlnRegistrosAfectadosInt = 0;
@@ -33,10 +33,9 @@ namespace DAL.Metodos
         }
 
 
-       public int AgregarPrestamoLibro(int cli_codigo,int lib_codigo)
+       public Boolean AgregarPrestamoLibro(int cli_codigo,int lib_codigo)
         {
             string vlcQuery = "";
-            int vlnRegistrosAfectadosInt = 0;
             try
             {
                 using (IDbConnection db = new SqlConnection(BD.Default.conexion))
@@ -44,13 +43,15 @@ namespace DAL.Metodos
 
                     vlcQuery = string.Format("EXEC  sp_InsertarPrestamoLibro {0}, {1}", cli_codigo, lib_codigo);
 
-                    vlnRegistrosAfectadosInt = db.Execute(vlcQuery);
-                    return vlnRegistrosAfectadosInt;
+                    int vlnRegistrosAfectados = db.Execute(vlcQuery);
+
+                    if (vlnRegistrosAfectados >= 1) return true;
+                    else return false;
                 }
             }
             catch (Exception ex)
             {
-                return -1;
+                return false;
             }
         }
 
