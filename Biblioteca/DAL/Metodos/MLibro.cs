@@ -25,9 +25,9 @@ namespace DAL.Metodos
                     // ... Convert byte array to Base64 string.
                     string result = Convert.ToBase64String(data);
 
-                    vlcQuery = string.Format("INSERT INTO [dbo].[libro]([lib_codigo],[lib_titulo],[lib_fecha_publicacion],[lib_idioma],[lib_paginas],[lib_sinopsis],[lib_portada],[lib_estado])" +
+                    vlcQuery = string.Format("INSERT INTO [dbo].[libro]([lib_codigo],[lib_titulo],[lib_fecha_publicacion],[lib_idioma],[lib_paginas],[lib_sinopsis],[lib_portada],[lib_estado], [lib_cantidad])" +
                                              "                   VALUES({0}         ,'{1}'         ,'{2}'                    ,'{3}'         ,{4}          ,'{5}'           ,CAST('{6}' AS NVARCHAR(MAX))          ,{7}         ,{8})", 
-                                             vloLibro.lib_codigo, vloLibro.lib_titulo, vloLibro.lib_fecha_publicacion, vloLibro.lib_idioma, vloLibro.lib_paginas, vloLibro.lib_sinopsis, result, Convert.ToInt32 (vloLibro.lib_estado), Convert.ToInt32(vloLibro.lib_cantidad));
+                                             vloLibro.lib_codigo, vloLibro.lib_titulo, vloLibro.lib_fecha_publicacion, vloLibro.lib_idioma, vloLibro.lib_paginas, vloLibro.lib_sinopsis, vloLibro._lib_portada, Convert.ToInt32 (vloLibro.lib_estado), Convert.ToInt32(vloLibro.lib_cantidad));
                     vlnRegistrosAfectados = db.Execute(vlcQuery);
 
                     if (vlnRegistrosAfectados >= 1) return true;
