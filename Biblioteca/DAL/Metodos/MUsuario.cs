@@ -123,5 +123,32 @@ namespace DAL.Metodos
             }
 
         }
+
+
+        public bool IniciarSesion(Usuario usuario)
+        {
+            try
+            {
+                Usuario usu = new Usuario();
+                using (var db = new SqlConnection(BD.Default.conexion))
+                {
+                    usu =  db.Query<Usuario>(@"
+                    SELECT *
+                        FROM Usuario
+                        WHERE usu_correo = '" + usuario.usu_correo + "' and usu_clave = '" + usuario.usu_clave + "'").SingleOrDefault();
+                }
+                if (usu == null)
+                {
+                    return false;
+                }
+                else { return true; }
+                
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
     }
 }
