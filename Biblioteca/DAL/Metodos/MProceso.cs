@@ -33,7 +33,6 @@ namespace DAL.Metodos
         }
 
 
-    
        public int AgregarPrestamoLibro(int cli_codigo,int lib_codigo)
         {
             string vlcQuery = "";
