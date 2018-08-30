@@ -8,22 +8,23 @@ using System.Web.Mvc;
 
 namespace UI.Controllers.Mantenimientos
 {
-    public class LibroController : Controller
+    public class AutorController : Controller
     {
-        private MLibro vloMLibro;
 
-        public LibroController()
+            private MAutor vloMAutor;
+
+        public AutorController()
         {
-            vloMLibro = new MLibro();
+            vloMAutor = new MAutor();
         }
-        // GET: Libro
+        // GET: Autor
         public ActionResult Index()
         {
             try
             {
-                var _Libro = vloMLibro.Lista();
-                var vloLista = Mapper.Map<List<Models.Libro>>(_Libro);
-                return PartialView("../../Views/Libro/Index", vloLista);
+                var _Autor = vloMAutor.Lista();
+                var vloLista = Mapper.Map<List<Models.Autor>>(_Autor);
+                return PartialView("../../Views/Autor/Index", vloLista);
             }
             catch (Exception)
             {
@@ -32,27 +33,27 @@ namespace UI.Controllers.Mantenimientos
             }
         }
 
-        // GET: Libro/Details/5
+        // GET: Autor/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Libro/Create
+        // GET: Autor/Create
         public PartialViewResult Create()
         {
             return PartialView();
         }
 
-        public JsonResult Guardar(Models.Libro vloLibro)
+        public JsonResult Guardar(Models.Autor vloAutor)
         {
             try
             {
 
-                var _Libro = Mapper.Map<DATA.Libro>(vloLibro);
+                var _Autor = Mapper.Map<DATA.Autor>(vloAutor);
 
 
-                if (vloMLibro.Agregar(_Libro))
+                if (vloMAutor.Agregar(_Autor))
                 {
                     return Json("Agregado");
                 }
@@ -67,26 +68,26 @@ namespace UI.Controllers.Mantenimientos
             }
         }
 
-        // GET: Libro/Edit/5
+        // GET: Autor/Edit/5
         public ActionResult Edit(int id = 1)
         {
-            var vloLibro = vloMLibro.Buscar(id);
-            var _Libro = Mapper.Map<Models.Libro>(vloLibro);
-            _Libro.lib_portada = Convert.FromBase64String(_Libro._lib_portada);
+            var vloAutor = vloMAutor.Buscar(id);
+            var _Autor = Mapper.Map<Models.Autor>(vloAutor);
+            //_Autor.aut_foto = Convert.FromBase64String(_Autor._aut_foto);
 
-            return PartialView("../../Views/Libro/Edit", _Libro);
+            return PartialView("../../Views/Autor/Edit", _Autor);
         }
 
-        //POST: Libro/Edit/5
-        public JsonResult Editar(Models.Libro vloLibro)
+        //POST: Autor/Edit/5
+        public JsonResult Editar(Models.Autor vloAutor)
         {
             try
             {
 
-                var _Libro = Mapper.Map<DATA.Libro>(vloLibro);
+                var _Autor = Mapper.Map<DATA.Autor>(vloAutor);
 
 
-                if (vloMLibro.Actualizar(_Libro))
+                if (vloMAutor.Actualizar(_Autor))
                 {
                     return Json("Actualizado");
                 }
@@ -94,7 +95,7 @@ namespace UI.Controllers.Mantenimientos
                 {
                     return Json("Error");
                 }
-               
+                return Json("Actualizado");
             }
             catch (Exception ex)
             {
@@ -102,13 +103,13 @@ namespace UI.Controllers.Mantenimientos
             }
         }
 
-        // GET: Libro/Delete/5
+        // GET: Autor/Delete/5
         public ActionResult Delete(int id)
         {
             try
             {
 
-                if (vloMLibro.Eliminar(id))
+                if (vloMAutor.Eliminar(id))
                 {
                     return Json("Eliminado");
                 }
@@ -122,21 +123,6 @@ namespace UI.Controllers.Mantenimientos
                 return Json(ex.Message);
             }
         }
-
-
-        public ActionResult CargarAutores(string id)
-        {
-            try
-            {
-                var _Libro = vloMLibro.ListaAutores(id);
-                var vloLista = Mapper.Map<List<Models.LibroXAutor>>(_Libro);
-                return PartialView("../../Views/Libro/CargarAutores", vloLista);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
+        
     }
 }

@@ -17,5 +17,6 @@ namespace DATA
         public byte[] lib_portada { get; set; }
         public string _lib_portada { get; set; }
         public bool lib_estado { get; set; }
+        public bool lib_cantidad{ get; set; }
     }
 }

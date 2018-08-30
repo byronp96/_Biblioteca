@@ -1,0 +1,78 @@
+﻿@model IEnumerable<UI.Models.LibroXAutor>
+
+@{
+    ViewBag.Title = "CargarAutores";
+}
+
+<h2>Autores</h2>
+@using (Html.BeginForm("Guardar", "Libro", FormMethod.Post, new { id = "frmLibro" }))
+{
+    <table class="table">
+        <tr>
+            <th>
+                <input type="checkbox" name="lxa_activo" value="" />
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lib_codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.aut_codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.aut_nombre)
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <div class="checkbox">
+                        @Html.DisplayFor(modelItem => item.lxa_activo, "", new { disabled = "false" })
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lib_codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.aut_codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.aut_nombre)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+<script>
+
+    function pMantenimiento(vloAccion, vloDatos) {
+        $.ajax({
+            url: vloAccion, //Se agrega el action del formulario
+            method: 'POST', //Se agrega el metodo de comunicación del formulario
+            data: vloDatos, //serializa toda la data del formulario para poder recibir el modelo en el controlador
+            success: function (respuesta) {
+                if (respuesta === 'AGREGADO') {
+                    alert("Cliente agregado.");
+                }
+                else {
+                    alert(respuesta);
+                }
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
+            }
+        });
+    };
+
+</script>

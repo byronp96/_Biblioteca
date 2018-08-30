@@ -80,14 +80,20 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.lib_portada, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <label class="control-label col-md-2">Cantidad</label>
                     <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.lib_portada, htmlAttributes: new { id = "txtPortada" })
-                        @*<input type="text" name="name" value="" id="txtPortada"/>*@
-                        @*@Html.EditorFor(model => model.lib_portada, new { htmlAttributes = new { @class = "form-control", id = "txtPortada" } })
-                @Html.ValidationMessageFor(model => model.lib_portada, "", new { @class = "text-danger" })*@
+                        <input type="number" name="lib_cantidad" value="@Model.lib_cantidad" class="form-control" autocomplete="off" />
                     </div>
                 </div>
+
+
+                <div class="form-group">
+                   
+                    <div class="col-md-10">
+                        <input type="text" name="lib_cantidad" value="@Model._lib_portada" class="form-control hide" autocomplete="off" />
+                    </div>
+                </div>
+                   
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Save" class="btn btn-default" />

@@ -16,5 +16,6 @@ namespace DATA
         public DateTime aut_fecha_nacimiento { get; set; }
         public string aut_nacionalidad { get; set; }
         public byte[] aut_foto { get; set; }
+        public string _aut_foto { get; set; }
     }
 }

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<UI.Models.Libro>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="container-fluid">
+    <div class="row">
+       
+        <div class="col-sm-11">
+            <!-- Flickity HTML init -->
+            <div class="main-carousel" data-flickity>
+                @foreach (var item in Model)
+                {
+                    <div class="carousel-cell card col-sm-1">
+                        <img class="card-img-top" src="data:image/png;base64,  @item._lib_portada" alt="Alternate Text"/>
+                        <div class="card-body">
+                            <h4 class="card-title">@item.lib_titulo</h4>
+                            @*<p class="card-text">Some example text.</p>*@
+                            <a href="#" class="btn btn-primary">Ver Detalles</a>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.main-carousel').flickity({
+            // options
+            cellAlign: 'left',
+            contain: true,
+            groupCells: true
+        });
+    });
+</script>

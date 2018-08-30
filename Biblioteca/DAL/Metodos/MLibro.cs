@@ -26,8 +26,8 @@ namespace DAL.Metodos
                     string result = Convert.ToBase64String(data);
 
                     vlcQuery = string.Format("INSERT INTO [dbo].[libro]([lib_codigo],[lib_titulo],[lib_fecha_publicacion],[lib_idioma],[lib_paginas],[lib_sinopsis],[lib_portada],[lib_estado])" +
-                                             "                   VALUES({0}         ,'{1}'         ,'{2}'                    ,'{3}'         ,{4}          ,'{5}'           ,CAST('{6}' AS NVARCHAR(MAX))          ,{7}         )", 
-                                             vloLibro.lib_codigo, vloLibro.lib_titulo, vloLibro.lib_fecha_publicacion, vloLibro.lib_idioma, vloLibro.lib_paginas, vloLibro.lib_sinopsis, result, Convert.ToInt32 (vloLibro.lib_estado));
+                                             "                   VALUES({0}         ,'{1}'         ,'{2}'                    ,'{3}'         ,{4}          ,'{5}'           ,CAST('{6}' AS NVARCHAR(MAX))          ,{7}         ,{8})", 
+                                             vloLibro.lib_codigo, vloLibro.lib_titulo, vloLibro.lib_fecha_publicacion, vloLibro.lib_idioma, vloLibro.lib_paginas, vloLibro.lib_sinopsis, result, Convert.ToInt32 (vloLibro.lib_estado), Convert.ToInt32(vloLibro.lib_cantidad));
                     vlnRegistrosAfectados = db.Execute(vlcQuery);
 
                     if (vlnRegistrosAfectados >= 1) return true;
@@ -52,9 +52,9 @@ namespace DAL.Metodos
                     // ... Convert byte array to Base64 string.
                     string result = Convert.ToBase64String(data);
 
-                    vlcQuery = string.Format("UPDATE Libro SET lib_codigo = {0},[lib_titulo] = '{1}',[lib_fecha_publicacion] = '{2}',[lib_idioma] = '{3}',[lib_paginas] = {4},[lib_sinopsis] = '{5}',[lib_portada] = '{6}',[lib_estado] = {7} " +
+                    vlcQuery = string.Format("UPDATE Libro SET lib_codigo = {0},[lib_titulo] = '{1}',[lib_fecha_publicacion] = '{2}',[lib_idioma] = '{3}',[lib_paginas] = {4},[lib_sinopsis] = '{5}',[lib_portada] = '{6}',[lib_estado] = {7} , lib_cantidad ={8}" +
                                              "       WHERE lib_codigo = {0}",
-                                             vloLibro.lib_codigo, vloLibro.lib_titulo, vloLibro.lib_fecha_publicacion, vloLibro.lib_idioma, vloLibro.lib_paginas, vloLibro.lib_sinopsis, result, Convert.ToInt32(vloLibro.lib_estado));
+                                             vloLibro.lib_codigo, vloLibro.lib_titulo, vloLibro.lib_fecha_publicacion, vloLibro.lib_idioma, vloLibro.lib_paginas, vloLibro.lib_sinopsis, result, Convert.ToInt32(vloLibro.lib_estado), Convert.ToInt32(vloLibro.lib_cantidad));
 
                     vlnRegistrosAfectados = db.Execute(vlcQuery);
 
@@ -108,7 +108,7 @@ namespace DAL.Metodos
       ,[lib_paginas]
       ,[lib_sinopsis]
       ,[lib_portada] AS _lib_portada
-      ,[lib_estado]
+      ,[lib_estado],lib_cantidad
                     FROM Libro
                     ").ToList();
                 }
@@ -141,7 +141,7 @@ namespace DAL.Metodos
       ,[lib_paginas]
       ,[lib_sinopsis]
       ,[lib_portada] AS _lib_portada
-      ,[lib_estado]
+      ,[lib_estado],lib_cantidad
                     FROM Libro
                         WHERE lib_codigo = " + id).SingleOrDefault();
 
@@ -153,6 +153,34 @@ namespace DAL.Metodos
             {
 
                 throw;
+            }
+
+        }
+
+        public List<LibroXAutor> ListaAutores(string id)
+        {
+            List<LibroXAutor> resultList;
+            try
+            {
+                using (var db = new SqlConnection(BD.Default.conexion))
+                {
+                    resultList = db.Query<LibroXAutor>(@"
+                        SELECT ISNULL(la.aut_codigo, '0') as [lxa_activo],a.[aut_codigo],Concat([aut_nombre],' ', aut_apellido) as [aut_nombre]
+                                FROM autor a
+						LEFT JOIN
+						        libro_autor la
+						ON a.aut_codigo = la.aut_codigo
+                        WHERE la.aut_codigo is null OR la.lib_codigo = " + id).ToList();
+                }
+
+
+
+                return resultList;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
 
         }

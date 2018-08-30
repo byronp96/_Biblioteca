@@ -10,7 +10,7 @@
 @using (Html.BeginForm("Guardar", "Libro", FormMethod.Post, new { id = "frmLibro" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Libro</h4>
         <hr />
@@ -79,7 +79,12 @@
                         @Html.ValidationMessageFor(model => model._lib_portada, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
+                <div class="form-group">
+                    <label class="control-label col-md-2">Cantidad</label>
+                    <div class="col-md-10">
+                        <input type="number" name="lib_cantidad" value="" class="form-control" autocomplete="off" />
+                    </div>
+                </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.lib_estado, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
@@ -90,6 +95,14 @@
                     </div>
                 </div>
 
+
+                <div class="form-group">
+
+                    <div class="col-md-10">
+                        <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" onclick="pLibroAutor()">Agregar Autores</a>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Create" class="btn btn-default" />
@@ -97,11 +110,12 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <img src="#" alt="Alternate Text" id="imgLibro"/>
+                <img src="#" alt="Alternate Text" id="imgLibro" />
             </div>
         </div>
-        </div>
+    </div>
 }
+
 
 <div>
     <a href="#" onclick="pRegresar()">Volver</a>
@@ -110,10 +124,11 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
 <script>
      $(document).ready(function () {
          //Ajax encargado de realizar el submit del formulario de consulta
-         $("#frmCliente").on("submit", function (e) {
+         $("#frmLibro").on("submit", function (e) {
              e.preventDefault();
              pMantenimiento($(this).attr("action"), $(this).serialize())
          });
@@ -188,4 +203,23 @@
          $('#imgLibro').attr('src', '');
          $('#imgLibro').attr('src', 'data:image/png;base64,' + imagen);
      }
+
+     function pLibroAutor() {
+         debugger;
+         $.ajax({
+             url: '../Libro/CargarAutores', //Se agrega el action del formulario
+             method: 'POST', //Se agrega el metodo de comunicación del formulario
+             data: { id : '0'}, //serializa toda la data del formulario para poder recibir el modelo en el controlador
+             success: function (respuesta) {
+                 debugger;
+                 //alert('RES.>'+respuesta);
+                 $('#exampleModal').modal('show');
+                 $('#bodyAutoresLibro').html(respuesta);
+             },
+             error: function (xhr, status, error) {
+                 var err = xhr.responseText;
+                 alert(error);
+             }
+         });
+     };
 </script>
