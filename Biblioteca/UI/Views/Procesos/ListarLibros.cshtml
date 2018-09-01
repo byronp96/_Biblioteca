@@ -1,0 +1,25 @@
+﻿@model IEnumerable<UI.Models.Libro>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+                    <div class="col-sm-2">
+                        <div class="card">
+                            @*<img class="" src="..." alt="Card image cap">*@
+                            <img class="card-img-top mx-auto d-block" src="data:image/png;base64,  @item._lib_portada" alt="Alternate Text" id="img" style="padding-left:1%;padding-right:1%; width:50%; height:auto" />
+                            <div class="card-body">
+                                <p class="card-text">@item.lib_titulo</p>
+                            </div>
+                        </div>
+                    </div>
+        }
+    </div>
+</div>
+
+<script>
+  
+</script>

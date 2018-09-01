@@ -6,3 +6,37 @@
 
 <h2>Principal</h2>
 
+
+<script>
+    $.ajax({
+        method: 'POST',
+        url: '../Biblioteca/CargarBanner/',
+        success: function (partialResult) {
+
+            //Desbloquea la pantalla
+            //DesbloquearPantalla();
+            //DEspliega el html
+            $("#pnlPantallas").html('');
+            $("#pnlPantallas").html(partialResult);
+
+
+        },
+        complete: function (partialResult) {
+            pDesbloquearPantalla();          
+
+        },
+        error: function () {
+            pDesbloquearPantalla();
+            //Desbloquea la pantalla
+            //DesbloquearPantalla();
+            //pMostrarMensaje("Error", "Esto es vergonzoso, algo ocurrio con la comunicación.", 4);
+        }
+    });
+    function pBloquearPantalla() {
+        $('#divLoader').addClass('loader');
+    }
+
+    function pDesbloquearPantalla() {
+        $('#divLoader').removeClass('loader');
+    }
+</script>

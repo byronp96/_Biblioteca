@@ -5,17 +5,17 @@
 }
 
 <h2>Autores</h2>
-@using (Html.BeginForm("Guardar", "Libro", FormMethod.Post, new { id = "frmLibro" }))
+@using (Html.BeginForm("Guardar", "Libro", FormMethod.Post, new { id = "frmLibroXAutor" }))
 {
-    <table class="table">
+    <table class="table table-responsive">
         <tr>
             <th>
-                <input type="checkbox" name="lxa_activo" value="" />
+                
             </th>
-            <th>
+            <th class="hide">
                 @Html.DisplayNameFor(model => model.lib_codigo)
             </th>
-            <th>
+            <th class="hide">
                 @Html.DisplayNameFor(model => model.aut_codigo)
             </th>
             <th>
@@ -28,14 +28,12 @@
         {
             <tr>
                 <td>
-                    <div class="checkbox">
-                        @Html.DisplayFor(modelItem => item.lxa_activo, "", new { disabled = "false" })
-                    </div>
+                    <input type="checkbox" name="lxa_activo" value="" />
                 </td>
-                <td>
+                <td class="hide">
                     @Html.DisplayFor(modelItem => item.lib_codigo)
                 </td>
-                <td>
+                <td class="hide">
                     @Html.DisplayFor(modelItem => item.aut_codigo)
                 </td>
                 <td>
@@ -55,6 +53,13 @@
 }
 
 <script>
+    $(document).ready(function () {
+        //Ajax encargado de realizar el submit del formulario de consulta
+        $("#frmLibroXAutor").on("submit", function (e) {
+            e.preventDefault();
+            pMantenimiento($(this).attr("action"), $(this).serialize())
+        });
+    });
 
     function pMantenimiento(vloAccion, vloDatos) {
         $.ajax({

@@ -138,5 +138,29 @@ namespace UI.Controllers.Mantenimientos
                 throw;
             }
         }
+
+
+        public JsonResult GuardarLibroAutor(Models.LibroXAutor vloLibro)
+        {
+            try
+            {
+
+                var _Libro = Mapper.Map<DATA.LibroXAutor>(vloLibro);
+
+
+                if (vloMLibro.AgregarAutorLibro(_Libro))
+                {
+                    return Json("Agregado");
+                }
+                else
+                {
+                    return Json("Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
     }
 }

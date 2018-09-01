@@ -21,7 +21,9 @@ namespace UI.Controllers
         {
             try
             {
-                return PartialView("../../Views/Entrar/IniciarSesion");
+
+                return View("../../Views/Biblioteca/Principal");
+                //return PartialView("../../Views/Entrar/IniciarSesion");
             }
             catch (Exception ex)
             {

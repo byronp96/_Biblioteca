@@ -32,5 +32,20 @@ namespace UI.Controllers.Procesos
                 throw;
             }
         }
+
+        public ActionResult ListarLibros()
+        {
+            try
+            {
+                var _Libro = vloMLibro.Lista();
+                var vloLista = Mapper.Map<List<Models.Libro>>(_Libro);
+                return PartialView("../../Views/Procesos/ListarLibros", vloLista);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

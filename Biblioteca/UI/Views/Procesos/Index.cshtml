@@ -2,13 +2,14 @@
 
 @{
     ViewBag.Title = "Index";
+    int contador = 1;
 }
-<div class="container-fluid">
+@*<div class="container-fluid">
     <div class="row">
-       
-        <div class="col-sm-11">
+
+        <div class="col-sm-12">
             <!-- Flickity HTML init -->
-            <div class="main-carousel" data-flickity>
+            @*<div class="main-carousel" data-flickity>
                 @foreach (var item in Model)
                 {
                     <div class="carousel-cell card col-sm-1">
@@ -16,23 +17,89 @@
                         <div class="card-body">
                             <h4 class="card-title">@item.lib_titulo</h4>
                             @*<p class="card-text">Some example text.</p>*@
-                            <a href="#" class="btn btn-primary">Ver Detalles</a>
+                            @*<a href="#" class="btn btn-primary">Ver Detalles</a>
                         </div>
                     </div>
                 }
 
-            </div>
+            </div>*@
+       @* </div>
+        </div>
+    </div>*@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="Carousel" class="carousel slide">
+
+                <ol class="carousel-indicators">
+                    <li data-target="#Carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#Carousel" data-slide-to="1"></li>
+                    <li data-target="#Carousel" data-slide-to="2"></li>
+                </ol>
+
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+
+                                if (contador >= 0 && contador <= 4)
+                                {
+                                    <div class="col-md-3"><a href="#" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
+                                    @*<div class="col-md-3"><a href="#" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
+                                    <div class="col-md-3"><a href="#" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
+                                    <div class="col-md-3"><a href="#" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>*@
+
+                                }
+                                contador++;
+                            }
+                        </div><!--.row-->
+                    </div><!--.item-->
+                </div><!--.carousel-inner-->
+                <a data-slide="prev" href="#Carousel" class="left carousel-control">‹</a>
+                <a data-slide="next" href="#Carousel" class="right carousel-control">›</a>
+            </div><!--.Carousel-->
+
         </div>
     </div>
-</div>
-
+    <div class="row">
+        <div id="ListaLibros">
+            dads
+        </div>
+    </div>
+</div><!--.container-->
 <script>
-    $(document).ready(function () {
-        $('.main-carousel').flickity({
-            // options
-            cellAlign: 'left',
-            contain: true,
-            groupCells: true
+        $(document).ready(function () {
+            $('#Carousel').carousel({
+                interval: 5000
+            });
+            debugger;
+            $.ajax({
+                //pvcData, string pvbAgregar, string pvbBorrar, string pvbEditar, string pvbCopiar, string pvbImprimir, string pvbAyudar, bool pvbEsCreacion = false, bool pvbEsCopia = false)
+                method: 'POST',
+                url: '../Procesos/ListarLibros/',
+                success: function (partialResult) {
+
+                    //Desbloquea la pantalla
+                    //DesbloquearPantalla();
+                    //DEspliega el html
+                    $("#ListaLibros").html('');
+                    $("#ListaLibros").html(partialResult);
+
+
+                },
+                complete: function (partialResult) {
+                    pDesbloquearPantalla();
+
+                },
+                error: function () {
+                    pDesbloquearPantalla();
+                    //Desbloquea la pantalla
+                    //DesbloquearPantalla();
+                    //pMostrarMensaje("Error", "Esto es vergonzoso, algo ocurrio con la comunicación.", 4);
+                }
+            });
         });
-    });
+    
 </script>
