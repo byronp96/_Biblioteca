@@ -139,7 +139,13 @@ namespace DAL.Metodos
                 }
                 if (usu == null)
                 {
-                    return false;
+                    usu = db.Query<Usuario>(@"
+                    SELECT *
+                        FROM Cliente
+                        WHERE cli_correo = '" + usuario.usu_correo + "' and cli_clave = '" + usuario.usu_clave + "'").SingleOrDefault();
+
+                    if (usu == null) { return false; } else { return true; }
+           
                 }
                 else {
                     return true;
