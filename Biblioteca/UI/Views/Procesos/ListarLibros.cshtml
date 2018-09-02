@@ -7,12 +7,20 @@
     <div class="row">
         @foreach (var item in Model)
         {
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                         <div class="card">
                             @*<img class="" src="..." alt="Card image cap">*@
                             <img class="card-img-top mx-auto d-block" src="data:image/png;base64,  @item._lib_portada" alt="Alternate Text" id="img" style="padding-left:1%;padding-right:1%; width:50%; height:auto" />
                             <div class="card-body">
-                                <p class="card-text">@item.lib_titulo</p>
+                                <h5 class="card-title">@item.lib_titulo</h5>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Autores: </li>
+                                <li class="list-group-item">Categoria: </li>
+                            </ul>
+                            <div class="card-body">
+                                <a href="#" class="card-link" onclick="pReservar(@item.lib_codigo)">Reservar</a>
+                                <a href="#" class="card-link" onclick="pVerDetalles(@item.lib_codigo)">Ver Detalles</a>
                             </div>
                         </div>
                     </div>
@@ -21,5 +29,18 @@
 </div>
 
 <script>
-  
+    function pReservar(id) {
+        alert();
+        $.ajax({
+            url: '../Procesos/AgregarLibroReserva',
+            method: 'POST',
+            data: { idLibro : id},
+            success: function (respuesta) {
+                alert(respuesta);
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
+            }
+        });
+    };
 </script>

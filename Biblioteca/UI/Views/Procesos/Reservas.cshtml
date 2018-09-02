@@ -1,0 +1,98 @@
+﻿@model IEnumerable<UI.Models.Libro>
+
+@{
+    ViewBag.Title = "Reservas";
+}
+
+<h2>Reservas</h2>
+<div class="row">
+    <table class="table">
+        <tr>
+            <th class="">
+                @Html.DisplayNameFor(model => model.lib_codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lib_titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lib_fecha_publicacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lib_idioma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lib_paginas)
+            </th>
+            <th class="hide">
+                @Html.DisplayNameFor(model => model.lib_sinopsis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model._lib_portada)
+            </th>
+            <th class="hide">
+                @Html.DisplayNameFor(model => model.lib_estado)
+            </th>
+            <th class="hide">
+                @Html.DisplayNameFor(model => model.lib_cantidad)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="hidden">
+                    @Html.DisplayFor(modelItem => item.lib_codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lib_titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lib_fecha_publicacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lib_idioma)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lib_paginas)
+                </td>
+                <td class="hide">
+                    @Html.DisplayFor(modelItem => item.lib_sinopsis)
+                </td>
+                <td>
+                    <img class="img-thumbnail" src="data:image/png;base64,  @item._lib_portada" alt="Alternate Text" id="img" style="width:20%; height:20%" />
+                </td>
+                <td class="hide">
+                    @Html.DisplayFor(modelItem => item.lib_estado)
+                </td>
+                <td class="hide">
+                    @Html.DisplayFor(modelItem => item.lib_cantidad)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div class="row">
+    <button onclick="pReservar()" class="btn btn-success">Reservar</button>
+</div>
+
+<script>
+    function pReservar() {
+        alert();
+        $.ajax({
+            url: '../Procesos/GuardarReservas',
+            method: 'POST',
+            data: { },
+            success: function (respuesta) {
+                alert(respuesta);
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
+            }
+        });
+    };
+</script>

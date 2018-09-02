@@ -51,7 +51,7 @@ namespace DAL.Metodos
                     // ... Convert byte array to Base64 string.
                     string result = Convert.ToBase64String(data);
 
-                    vlcQuery = string.Format("UPDATE Autor SET aut_codigo = {0},[aut_nombre] = '{1}',[aut_apellido] = '{2}',[aut_fecha_nacimiento] = '{3}',[aut_nacionalidad] = '{4}',[aut_foto] = '{5}'" +
+                    vlcQuery = string.Format("UPDATE Autor SET [aut_nombre] = '{1}',[aut_apellido] = '{2}',[aut_fecha_nacimiento] = '{3}',[aut_nacionalidad] = '{4}',[aut_foto] = '{5}'" +
                                              "       WHERE aut_codigo = {0}",
                                               vloAutor.aut_codigo, vloAutor.aut_nombre, vloAutor.aut_apellido, vloAutor.aut_fecha_nacimiento, vloAutor.aut_nacionalidad, vloAutor._aut_foto);
 

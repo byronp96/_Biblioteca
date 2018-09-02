@@ -99,7 +99,7 @@
                 <div class="form-group">
 
                     <div class="col-md-10">
-                        <a href="#" class="btn" data-toggle="modal" data-target="#exampleModal" onclick="pLibroAutor()">Agregar Autores</a>
+                        <a href="#" class="btn" data-toggle="modal" data-target="#modalDetalles" onclick="pLibroAutor()">Agregar Autores</a>
                     </div>
                 </div>
 
@@ -126,19 +126,50 @@
 }
 
 <script>
-     $(document).ready(function () {
+   
+    $(document).ready(function () {
+        $.ajax({
+            url: '../Libro/CargarAutores', //Se agrega el action del formulario
+            method: 'POST', //Se agrega el metodo de comunicación del formulario
+            data: { id: '0' }, //serializa toda la data del formulario para poder recibir el modelo en el controlador
+            success: function (respuesta) {
+                debugger;
+                //alert('RES.>'+respuesta);
+                $('#modalDetalles').modal('show');
+                $('#bodyAutoresLibro').html(respuesta);
+            },
+            error: function (xhr, status, error) {
+                var err = xhr.responseText;
+                alert(error);
+            }
+        });
+
          //Ajax encargado de realizar el submit del formulario de consulta
          $("#frmLibro").on("submit", function (e) {
              e.preventDefault();
-             pMantenimiento($(this).attr("action"), $(this).serialize())
+           
+
+             pMantenimiento($(this).attr("action"), $(this).serialize());
          });
      });
 
-     function pMantenimiento(vloAccion, vloDatos) {
+    function pMantenimiento(vloAccion, vloDatos) {
+        debugger;
+
+        var autores = [];
+        $('#tbllibrosXautor tbody tr').each(function () {
+            if ($(this).find('td:eq(0)').find("input[type='checkbox']").is(":checked")) {
+                autores.push($(this).find("td:eq(2) input[type='text']").val());
+            }
+        });
+        debugger;
+        var a = JSON.stringify(autores);
+        alert(a);
+
          $.ajax({
              url: vloAccion, //Se agrega el action del formulario
              method: 'POST', //Se agrega el metodo de comunicación del formulario
-             data: vloDatos, //serializa toda la data del formulario para poder recibir el modelo en el controlador
+             data: { 'vloLibro': vloDatos, 'pvcAutores': a }, //serializa toda la data del formulario para poder recibir el modelo en el controlador
              success: function (respuesta) {
                  if (respuesta === 'AGREGADO') {
                      alert("Cliente agregado.");
@@ -206,20 +237,6 @@
 
      function pLibroAutor() {
          debugger;
-         $.ajax({
-             url: '../Libro/CargarAutores', //Se agrega el action del formulario
-             method: 'POST', //Se agrega el metodo de comunicación del formulario
-             data: { id : '0'}, //serializa toda la data del formulario para poder recibir el modelo en el controlador
-             success: function (respuesta) {
-                 debugger;
-                 //alert('RES.>'+respuesta);
-                 $('#exampleModal').modal('show');
-                 $('#bodyAutoresLibro').html(respuesta);
-             },
-             error: function (xhr, status, error) {
-                 var err = xhr.responseText;
-                 alert(error);
-             }
-         });
+
      };
 </script>

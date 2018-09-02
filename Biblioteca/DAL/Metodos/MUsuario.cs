@@ -141,7 +141,9 @@ namespace DAL.Metodos
                 {
                     return false;
                 }
-                else { return true; }
+                else {
+                    return true;
+                }
                 
             }
             catch (Exception ex)

@@ -129,5 +129,57 @@ namespace DAL.Metodos
             }
 
         }
+
+        public List<LibroXCategoria> ListaCategorias(string id)
+        {
+            List<LibroXCategoria> resultList;
+            try
+            {
+                using (var db = new SqlConnection(BD.Default.conexion))
+                {
+                    resultList = db.Query<LibroXCategoria>(@"
+ SELECT ISNULL(le.lib_codigo, '0') as [lxa_activo],e.[edi_codigo],edi_nombre
+                                FROM editorial e
+						LEFT JOIN
+						        libro_editorial le
+						ON e.edi_codigo= le.edi_codigo
+                        WHERE le.edi_codigo is null OR le.edi_codigo =  " + id).ToList();
+                }
+
+
+
+                return resultList;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        public bool AgregarAutorLibro(LibroXCategoria vloLibro)
+        {
+            string vlcQuery = "";
+            int vlnRegistrosAfectados = 0;
+            try
+            {
+                using (IDbConnection db = new SqlConnection(BD.Default.conexion))
+                {
+
+                    vlcQuery = string.Format("INSERT INTO [dbo].[libro]([lib_codigo],[aut_codigo]" +
+                                             "                   VALUES({0},{1})",
+                                             vloLibro.lib_codigo, vloLibro.aut_codigo);
+                    vlnRegistrosAfectados = db.Execute(vlcQuery);
+
+                    if (vlnRegistrosAfectados >= 1) return true;
+                    else return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

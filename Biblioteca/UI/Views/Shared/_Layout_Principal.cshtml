@@ -109,6 +109,12 @@
                         <span class="nav-link-text">Recargo</span>
                     </a>
                 </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="#" onclick="pMostrar('Procesos','Reservas')">
+                        <i class="fa fa-fw fa-check-square"></i>
+                        <span class="nav-link-text">Reservas</span>
+                    </a>
+                </li>
             </ul>
             <ul class="navbar-nav sidenav-toggler">
                 <li class="nav-item">
@@ -156,8 +162,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body" id="bodyAutoresLibro">
-                        ...
+                    <div class="modal-body">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -165,7 +170,39 @@
                     </div>
                 </div>
             </div>
-        </div>s
+        </div>
+        <div class="modal fade" id="modalDetalles" tabindex="-1" role="dialog" aria-labelledby="exampleModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#bodyAutoresLibro">Autores</a></li>
+                            <li><a data-toggle="tab" href="#bodyCategoriasLibro">Menu 1</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div id="bodyAutoresLibro" class="tab-pane fade in active" >
+                             
+                            </div>
+                            <div id="bodyCategoriasLibro" class="tab-pane fade">
+                                <h3>Menu 1</h3>
+                                <p>Some content in menu 1.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <!-- Bootstrap core JavaScript-->
         <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -204,6 +241,40 @@
             url: '../' + pvcControlador + '/Index/',
             success: function (partialResult) {
                 
+                //Desbloquea la pantalla
+                //DesbloquearPantalla();
+                //DEspliega el html
+                $("#pnlPantallas").html('');
+                $("#pnlPantallas").html(partialResult);
+
+
+            },
+            complete: function (partialResult) {
+                pDesbloquearPantalla();
+
+            },
+            error: function () {
+                pDesbloquearPantalla();
+                //Desbloquea la pantalla
+                //DesbloquearPantalla();
+                //pMostrarMensaje("Error", "Esto es vergonzoso, algo ocurrio con la comunicación.", 4);
+            }
+        });
+    }
+
+    function pMostrar(pvcControlador, pvcAccion) {
+
+        //Bloquea la pantalla
+        //BloquearPantalla();
+        pBloquearPantalla();
+        //Realiza la llamada
+        $.ajax({
+
+            //pvcData, string pvbAgregar, string pvbBorrar, string pvbEditar, string pvbCopiar, string pvbImprimir, string pvbAyudar, bool pvbEsCreacion = false, bool pvbEsCopia = false)
+            method: 'POST',
+            url: '../' + pvcControlador + '/'+pvcAccion+'/',
+            success: function (partialResult) {
+
                 //Desbloquea la pantalla
                 //DesbloquearPantalla();
                 //DEspliega el html

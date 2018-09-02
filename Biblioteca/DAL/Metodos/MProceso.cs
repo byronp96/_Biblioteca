@@ -11,7 +11,7 @@ namespace DAL.Metodos
 {
     public class MProceso
     {
-       public int AgregarPrestamo(int cli_codigo, int lib_codigo, DateTime pre_fecha_inicio, DateTime pre_fecha_fin, int pre_estado)
+       public int AgregarPrestamo(int cli_codigo, string pre_fecha_inicio, string pre_fecha_fin, int pre_estado)
         {
             string vlcQuery = "";
             int vlnRegistrosAfectadosInt = 0;
@@ -20,7 +20,7 @@ namespace DAL.Metodos
                 using (IDbConnection db = new SqlConnection(BD.Default.conexion))
                 {
 
-                    vlcQuery = string.Format("EXEC sp_InsertarPrestamo {0}, {1}, {2}, {3}", cli_codigo, pre_fecha_inicio, pre_fecha_fin, pre_estado);
+                    vlcQuery = string.Format("EXEC sp_InsertarPrestamo {0}, '{1}', '{2}', {3}", cli_codigo, pre_fecha_inicio, pre_fecha_fin, pre_estado);
 
                     vlnRegistrosAfectadosInt = db.Execute(vlcQuery);
                     return vlnRegistrosAfectadosInt;

@@ -41,13 +41,13 @@
     <a href="../Biblioteca/Principal">Usuario</a>*@
 
     <script>
-    $(document).ready(function () {
+    window.onload = function () {
         //Ajax encargado de realizar el submit del formulario de consulta
         $("#frmInicio").on("submit", function (e) {
             e.preventDefault();
             pInicio($(this).attr("action"), $(this).serialize());
         });
-    });
+    }
 
     function pInicio(vloAccion, vloDatos) {
         $.ajax({

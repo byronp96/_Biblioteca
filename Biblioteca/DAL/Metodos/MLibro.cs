@@ -157,6 +157,30 @@ namespace DAL.Metodos
 
         }
 
+        public List<Libro> Reservas(string libros)
+        {
+            List<Libro> resultList;
+            string pvcConsulta;
+            try
+            {
+                using (var db = new SqlConnection(BD.Default.conexion))
+                {
+                    pvcConsulta = string.Format("SELECT [lib_codigo],[lib_titulo],[lib_fecha_publicacion],[lib_idioma],[lib_paginas],[lib_sinopsis],[lib_portada] AS _lib_portada,[lib_estado], lib_cantidad FROM Libro where lib_codigo IN({0})", libros);
+                    resultList = db.Query<Libro>(@pvcConsulta).ToList();
+                }
+
+
+
+                return resultList;
+            }
+            catch (Exception EX)
+            {
+
+                throw;
+            }
+
+        }
+
         public List<LibroXAutor> ListaAutores(string id)
         {
             List<LibroXAutor> resultList;
@@ -183,6 +207,30 @@ namespace DAL.Metodos
                 throw ex;
             }
 
+        }
+
+        public bool AgregarAutorLibro(LibroXAutor vloLibro)
+        {
+            string vlcQuery = "";
+            int vlnRegistrosAfectados = 0;
+            try
+            {
+                using (IDbConnection db = new SqlConnection(BD.Default.conexion))
+                {
+
+                    vlcQuery = string.Format("INSERT INTO [dbo].[libro]([lib_codigo],[aut_codigo]" +
+                                             "                   VALUES({0},{1})",
+                                             vloLibro.lib_codigo, vloLibro.aut_codigo);
+                    vlnRegistrosAfectados = db.Execute(vlcQuery);
+
+                    if (vlnRegistrosAfectados >= 1) return true;
+                    else return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

@@ -22,8 +22,8 @@ namespace UI.Controllers
             try
             {
 
-                return View("../../Views/Biblioteca/Principal");
-                //return PartialView("../../Views/Entrar/IniciarSesion");
+                //return View("../../Views/Biblioteca/Principal");
+                return PartialView("../../Views/Entrar/IniciarSesion");
             }
             catch (Exception ex)
             {
@@ -71,12 +71,16 @@ namespace UI.Controllers
 
         public JsonResult IniciarSesioneEvt(Models.Usuario Usuario)
         {
+            List<int> vloLibrosReservados;
             try
             {
+                vloLibrosReservados = new List<int>();
                 var _Usuario = Mapper.Map<DATA.Usuario>(Usuario);
                 if (vloMUsuario.IniciarSesion(_Usuario))
                 {
+                    Session["listaReservados"] = vloLibrosReservados;
                     return Json("Biblioteca/Principal");
+                    
                 }
                 else
                 {

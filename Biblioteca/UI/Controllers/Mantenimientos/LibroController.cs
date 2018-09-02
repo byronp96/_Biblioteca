@@ -11,10 +11,15 @@ namespace UI.Controllers.Mantenimientos
     public class LibroController : Controller
     {
         private MLibro vloMLibro;
+        private MCategoria vloCategoria;
+        private MEditorial vloEditorial;
 
         public LibroController()
         {
             vloMLibro = new MLibro();
+            vloCategoria = new MCategoria();
+            vloEditorial = new MEditorial();
+
         }
         // GET: Libro
         public ActionResult Index()
@@ -44,11 +49,11 @@ namespace UI.Controllers.Mantenimientos
             return PartialView();
         }
 
-        public JsonResult Guardar(Models.Libro vloLibro)
+        public JsonResult Guardar(Models.Libro vloLibro, string pvcAutores, string pvcCategorias)
         {
             try
             {
-
+                List<int> obj = Newtonsoft.Json.JsonConvert.DeserializeObject <List<int>>(pvcAutores);
                 var _Libro = Mapper.Map<DATA.Libro>(vloLibro);
 
 
@@ -131,6 +136,36 @@ namespace UI.Controllers.Mantenimientos
                 var _Libro = vloMLibro.ListaAutores(id);
                 var vloLista = Mapper.Map<List<Models.LibroXAutor>>(_Libro);
                 return PartialView("../../Views/Libro/CargarAutores", vloLista);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public ActionResult CargarCategorias(string id)
+        {
+            try
+            {
+                var _Libro = vloCategoria.ListaCategorias(id);
+                var vloLista = Mapper.Map<List<Models.LibroXCategoria>>(_Libro);
+                return PartialView("../../Views/Libro/CargarCategorias", vloLista);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public ActionResult CargarEditoriales(string id)
+        {
+            try
+            {
+                var _Libro = vloEditorial.ListaEditorial(id);
+                var vloLista = Mapper.Map<List<Models.LibroXEditorial>>(_Libro);
+                return PartialView("../../Views/Libro/CargarEditoriales", vloLista);
             }
             catch (Exception)
             {

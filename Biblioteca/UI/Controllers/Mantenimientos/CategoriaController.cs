@@ -122,6 +122,8 @@ namespace UI.Controllers.Mantenimientos
             }
         }
 
+
+
         // POST: Categoria/Delete/5
         //[HttpPost]
         //public ActionResult Delete(int id, FormCollection collection)
